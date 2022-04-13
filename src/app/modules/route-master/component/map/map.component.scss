@@ -1,0 +1,196 @@
+.main-map-wrapper {
+  position: relative;
+  min-width: 1060px;
+  margin: 12px;
+  .route-wrapper {
+    display: flex;
+  }
+
+  .conflicts {
+    margin-left: auto;
+    color: red;
+    margin-right: 20px;
+    display: flex;
+    align-items: center;
+  }
+
+  .segment-count {
+    margin-right: 10px;
+    color: black;;
+  }
+
+  .map-wrapper {
+    height: calc(100vh - 140px);
+    margin-top: 12px;
+    margin-right: 12px;
+  }
+
+  .next-btn-wrapper {
+    text-align: center;
+    margin-top: 12px;
+
+    .next-btn {
+      // margin-left: auto;
+      // width: 130px;
+      // background-color: #fe7c00;
+      // color: #fff;
+      // font-size: 16px;
+      // border: none;
+      // -webkit-box-shadow: none;
+      // box-shadow: none;
+      // cursor: pointer;
+      // outline: none;
+      // padding: 12px;
+      // margin-right: 12px;
+
+      //new Styles 
+      margin-left: auto;
+      width: 121px;
+      background-color: #f28100;;
+      color: #fff;
+      font-size: 14px;
+      font-weight: bold;
+      border: none;
+      box-shadow: none;
+      cursor: pointer;
+      outline: none;
+      padding: 12px;
+      margin-right: 12px;
+    }
+  }
+}
+
+@media (max-width: 767px) {
+  .title {
+    margin: 10px;
+    font-size: 20px;
+  }
+  .main-map-wrapper {
+    margin: 0 18px;
+    .next-btn-wrapper {
+      .next-btn {
+        font-size: 10px;
+        width: 95px;
+        margin-bottom: 10px;
+        padding: 8px 12px;
+      }
+    }
+  }
+}
+
+.spinner-wrapper-map {
+  position: absolute;
+  margin: auto;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  z-index: 99999999;
+}
+
+.labels {
+  color: red;
+}
+
+.font-12 {
+  font-size: 12px !important;
+}
+
+.heading {
+  font-weight: bold;
+  display: inline-block;
+  margin-bottom: 0px !important;
+}
+
+.icon {
+  position: absolute;
+  right: 0;
+  cursor: pointer;
+}
+
+#marker-tooltip {
+  display: none;
+  position:absolute;
+  width: fit-content;
+  height: fit-content;
+  padding:10px;
+  background-color: #000;
+  margin: 15px;
+  color:#fff;
+  border-radius: 2px;
+}
+
+/* Tooltip container */
+.tooltip {
+  position: relative;
+  display: inline-block;
+}
+
+/* Tooltip text */
+.tooltip .tooltiptext {
+  visibility: hidden;
+  width: 120px;
+  background-color: #555;
+  color: #fff;
+  text-align: center;
+  padding: 5px 0;
+  border-radius: 6px;
+
+  /* Position the tooltip text */
+  position: absolute;
+  z-index: 1;
+  bottom: 121%;
+  left: 46%;
+  margin-left: -60px;
+
+  /* Fade in tooltip */
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+
+/* Tooltip arrow */
+.tooltip .tooltiptext::after {
+  content: "";
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  margin-left: -5px;
+  border-width: 5px;
+  border-style: solid;
+  border-color: #555 transparent transparent transparent;
+}
+
+/* Show the tooltip text when you mouse over the tooltip container */
+.tooltip:hover .tooltiptext {
+  visibility: visible;
+  opacity: 1;
+}
+
+.checkbox-container {
+  display: flex;
+  margin-left: auto;
+}
+
+.accuracy {
+  padding: 0px 10px;
+  padding-top: 3px;
+}
+
+.checkbox-btn {
+  padding: 0px 10px;
+}
+
+.checkbox-btn .mat-checkbox-frame {
+  border-color: #B8D06C;
+}
+
+.checkbox-btn .mat-checkbox-checked.mat-accent .mat-checkbox-background,.mat-checkbox-indeterminate.mat-accent .mat-checkbox-background {
+  background-color: #B8D06C;
+}
+.checkbox-btn {
+    color: #B8D06C;
+   .mat-checkbox-checked.mat-accent .mat-checkbox-background,.mat-checkbox-indeterminate.mat-accent .mat-checkbox-background {
+    background-color: #B8D06C !important;
+
+  }
+}

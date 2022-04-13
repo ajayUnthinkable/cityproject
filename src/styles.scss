@@ -1,0 +1,243 @@
+/* You can add global styles to this file, and also import other style files */
+
+@import "./theme/variables.scss";
+@import "~@angular/material/prebuilt-themes/indigo-pink.css";
+@import "~@angular/material/theming";
+@include mat-core();
+
+$candy-app-primary: mat-palette($mat-deep-orange);
+$candy-app-accent: mat-palette($mat-pink, A200, A100, A400);
+$candy-app-warn: mat-palette($mat-red);
+$candy-app-theme: mat-light-theme($candy-app-primary, $candy-app-accent, $candy-app-warn);
+@include angular-material-theme($candy-app-theme);
+* {
+  box-sizing: border-box;
+}
+img {
+  max-width: 100%;
+}
+body {
+  margin: 0;
+  font-family: arial;
+  /* background-color: map-get($map: $colors, $key: appbackground); */
+}
+
+.logo {
+  background-image: url("../src/assets/images/chalo_logo.png");
+  height: 100px;
+  width: 170px;
+  margin: auto;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: contain;
+}
+.app-btn {
+  height: 40px;
+  width: 110px;
+  background: map-get($map: $colors, $key: primary);
+  border: none;
+  color: #fff;
+  outline: none;
+  cursor: pointer;
+}
+
+.spinner-wrapper {
+  .mat-progress-spinner {
+    left: 0;
+    position: absolute;
+    right: 0;
+    top: 40%;
+    margin: auto;
+    z-index: 9999;
+  }
+}
+.ngx-pagination .current {
+  background: #f28100 !important;
+}
+
+.ngx-pagination {
+  text-align: center;
+}
+.heading {
+  font-weight: 600;
+}
+
+button:disabled {
+  opacity: 0.5;
+}
+
+// css for info window
+.info-window-wrapper {
+  min-width: 180px;
+  font-weight: 500;
+  font-size: 16px;
+}
+
+.input-box {
+  width: 100%;
+  border-top: 0px;
+  border-left: 0px;
+  border-right: 0px;
+  display: inline;
+  padding: 07px;
+}
+
+.max-width {
+  max-width: 185px;
+}
+
+input:focus {
+  outline-offset: 0px;
+  outline: 0;
+  border-bottom-color: #f57c00;
+}
+
+.pd-5 {
+  padding-top: 05px;
+}
+
+.delete-icon {
+  margin-right: 20px;
+  margin-left: 05px;
+}
+
+.delete-icon-1 {
+  margin-right: 20px;
+  margin-left: 05px;
+  margin-top: 8px;
+}
+
+.merge-icon {
+  margin-right: 20px;
+  margin-left: 05px;
+}
+
+.edit-icon {
+  width: 16px;
+  margin-top: 5px;
+}
+
+.show {
+  display: inline !important;
+}
+
+.hide {
+  display: none !important;
+}
+
+.edit-button-container {
+  display: flex;
+  justify-content: flex-start;
+}
+
+.firstHeading {
+  cursor: pointer;
+}
+
+// .save-icon {
+//   width: 20px;
+// }
+
+//map bottom menu css
+.bottom-menu-item {
+  display: flex;
+  padding: 12px;
+  background: white;
+  justify-content: space-between;
+}
+
+.iconStyle {
+  width: 18px;
+  margin-top: 12px;
+}
+
+.menu-icon {
+  width: 100%;
+  display: inline-block;
+  height: 22px;
+}
+
+.menu-item {
+  text-align: center;
+  margin-left: 10px;
+  margin-right: 10px;
+}
+
+.menu-item-title {
+  font-size: 13px;
+}
+
+.navigator-button {
+  display: inline-block;
+  width: 30px;
+  text-align: center;
+  background: black;
+  height: 72px;
+}
+
+.add-icon {
+  width: 10px;
+}
+
+.info-wrapper {
+  width: 40px;
+}
+
+.add-button-container {
+  display: flex;
+  justify-content: space-around;
+}
+
+.position {
+  position: relative;
+}
+
+.top-7 {
+  top: 7px;
+}
+
+.pd-11 {
+  padding-top: 11px;
+}
+
+.custom-dialog-container .mat-dialog-container {
+  padding: 5px !important;
+}
+
+.gm-style-iw {
+  border-radius: 0px 0px 0 0 !important;
+  box-shadow: 0px 1px 1.9px 0.1px rgba(0, 0, 0, 0.2) !important;
+}
+
+.gm-ui-hover-effect {
+  display: none !important;
+}
+
+.cancel-icon {
+  position: absolute;
+  right: 9px;
+  top: 5px;
+}
+
+.pd-13 {
+  padding-top: 13px;
+}
+
+.width-180 {
+  width: 180px;
+}
+
+.stop-name {
+  width: 150px;
+  display: inline-block;
+}
+
+.font-adj {
+  font-weight: 300;
+  font-size: 13px;
+  padding-top: 5px;
+}
+
+.show-block {
+  display: inline-block;
+}

@@ -1,0 +1,37 @@
+<div>
+    <div class="mar-bot-34 heading heading-text">
+        <h1 class="heading">{{heading}}</h1>
+    </div>
+    <div class="csv-wrapper">
+        <input class="mediaCapture" #fileUpload type="file" accept=".csv" (change)="fileSelected($event)" [(multiple)] ="multipleAllow" >
+        <div class="wrapper" #file (click)="fileUpload.click()">Select File</div>
+        <div>
+            <mat-checkbox (change)="setReverseOption($event.checked)" [color] = "'primary'">
+           Reverse Route</mat-checkbox>
+        </div>
+        <div class="error-msg" *ngIf="errorMsg">
+            <div *ngFor="let key of errorKeys">
+                <div *ngFor="let data of errorMsg[key]">
+                    <span *ngIf="(data !== 'ok')">{{key}} : {{data}}</span>
+                </div>
+            </div>
+        </div>
+        <div class="btn-wrapper">
+            <button (click)="close()" [disabled]="isSaveDisable" class="app-btn"><span>{{isSaveDisable ? 'Please
+                    wait' : 'CANCEL'}}</span></button>
+            <button (click)="upload()" [disabled]="isSaveDisable || !csvJSON || (csvJSON && csvJSON.length == 0)"
+                class="app-btn">
+                <span>{{isSaveDisable ? 'Please wait' : 'UPLOAD'}}</span>
+            </button>
+        </div>
+    </div>
+
+    <div class="guideLines" *ngIf="multipleAllow">
+        <p class="guide-head">Guidelines</p>
+        <ul class="guideLinePoints">
+            <li>All fares files to follow the naming conventions as &lt;routeid&gt;.csv</li>
+            <li>You can select multiple files at once</li>
+            <li>Incase the routes fares are defined using stages, please use the stage sequence number as the first row and column</li>
+        </ul>
+    </div>
+</div>

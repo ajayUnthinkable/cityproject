@@ -1,0 +1,28 @@
+ @import "../../../../../theme/variables.scss";
+
+.main-container-event-form {
+  padding: 20px 30px;
+  background: #fff;
+  //  overflow: scroll;
+  .title-font {
+    font-size: 20px;
+  }
+  .form-check-button{
+    padding-top: 2rem;
+    margin: 0rem;
+  }
+  .checkbox-right {
+    padding-left: 5rem;
+    margin-left: 3rem;
+  }
+    
+  .mat-radio-label {
+    margin-right: 24px;
+  }
+  
+ 
+  
+}
+
+
+

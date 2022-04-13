@@ -1,0 +1,94 @@
+@import "../../../../../theme/variables.scss";
+
+.view-fare-wrapper {
+  position: relative;
+  width: fit-content;
+}
+
+.heading {
+  color: $primary;
+  font-weight: bold;
+  display: inline-block;
+}
+
+.header {
+  border-bottom: 01px solid #ddd;
+}
+
+.fare-matrix {
+  display: table-row-group;
+  padding-right: 10px;
+  width: fit-content;
+}
+
+.fare {
+  padding: 12px;
+  min-width: 40px;
+  min-height: 46px;
+  text-align: center;
+  vertical-align: middle;
+  border: 01px solid black;
+  display: table-cell;
+}
+
+.hidden {
+  display: none;
+}
+
+.fare-matrix :first-child {
+  background-color: $primary;
+  color: white;
+  min-width: 200px;
+}
+
+.icon {
+  position: absolute;
+  right: 0;
+  cursor: pointer;
+}
+
+.matrix-wrapper {
+  overflow: auto;
+  padding: 20px;
+  display: table;
+  margin: auto;
+}
+
+.matrix-row {
+  display: table-row;
+}
+.filter-btn {
+  font-size: 14px;
+  padding: 12px 15px;
+  background: #f28100;
+  border: none;
+  color: #fff;
+  outline: none;
+  margin-left: 15px;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.download-btn {
+  display: flex;
+  justify-content: flex-end;
+  padding: 15px;
+}
+
+
+
+
+
+.max-stretch {
+  // width: 850px;
+  width: 910px;
+  // height: calc(80vh - 150px);
+  height: calc(80vh - 68px);
+}
+
+
+.fare-item {
+  color: black !important;
+  background-color: white !important;
+}
+

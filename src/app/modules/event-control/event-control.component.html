@@ -1,0 +1,118 @@
+<div *ngIf="isLoading" class="spinner-wrapper">
+    <mat-progress-spinner class="example-margin" [color]="'primary'" [mode]="'indeterminate'" [diameter]="'50'"
+        [strokeWidth]="'3'" [value]="'100'">
+    </mat-progress-spinner>
+</div>
+<div *ngIf="(eventFiltered || homeEventFiltered)">
+    <div class="filter-bar">
+        <div class="display-flex">
+            <div class="search-input">
+                <input type="text" [(ngModel)]="search" placeholder="Search event by name"
+                    (input)="onSearchChange($event.target.value)" />
+                <span class="search-icon">
+                    <i class="fa fa-search" aria-hidden="true"></i>
+                </span>    
+            </div>
+            <div class="form-check-button">
+                <section class="checkbox-section" class="display-flex">
+                    <mat-checkbox class="checkbox-margin " color="primary" [checked]="currentlyChecked === 'eventControlForm'" (change)="selectCheckBox('eventControlForm',$event)">Event Updates</mat-checkbox> 
+                    <mat-checkbox class="checkbox-right" color="primary" [checked]="currentlyChecked === 'HomeScreenUpdateForm'" (change)="selectCheckBox('HomeScreenUpdateForm',$event)" >Home Screen Updates</mat-checkbox>
+                </section>  
+            </div>
+        </div>
+        <div class="display-flex">
+                    <ng-container *ngIf="currentlyChecked == 'eventControlForm'">
+                        <app-filter
+                        class="filter-icon-pos filter-pos"
+                        [list]="filterList"
+                        [paramList] = "paramList"  
+                        (onFilterChange)="filterChange($event)" >
+                        </app-filter>
+                    </ng-container>
+            <button (click)="getEventDetails(null)" class="filter-btn1 btn-width" type="button"><i class="fa fa-plus"
+                    aria-hidden="true"></i>
+                Add event</button>
+        </div>
+    </div>
+
+    <div *ngIf="eventFiltered && eventFiltered.length && currentlyChecked==='eventControlForm'">
+        <div class="table-wrapper" *ngIf="events && events.length">
+            <div class="table-grid">
+                <div class="table-row table-head1">
+                    <div>Event</div>
+                    <div class="half-flex">City
+                        <span class="sorting-icon" (click)="sortCity()">
+                            <i [ngClass]="isCitySortClick && isCityAsc ? 'theme-color' : ''" class="fa fa-sort-asc"
+                                aria-hidden="true"></i>
+                            <i [ngClass]="isCitySortClick && !isCityAsc ? 'theme-color' : ''" class="fa fa-sort-desc"
+                                aria-hidden="true"></i>
+                        </span>
+                    </div>
+                    <div class="half-flex">Created By</div>
+                    <div class="half-flex">Start Time</div>
+                    <div class="half-flex">End Time</div>
+                    <div class="half-flex">Status</div>
+                    <div class="half-flex">Action</div>
+                </div>
+                <div class="table-body">
+                    <div class="table-row" *ngFor="let item of events | paginate: { itemsPerPage: 10, currentPage: pageNo }">
+                        <div>{{item.data.eventDetails.name}}</div>
+                        <div class="half-flex capitalize">{{item.data.eventDetails.city}}</div>
+                        <div class="half-flex">{{item.data.eventDetails.createdBy}}</div>
+                        <div class="half-flex upper-case" *ngIf="item.data.timelines.type == 'oneTime'">{{item.data.timelines.startTime | date:'short'}}</div>
+                        <div class="half-flex upper-case" *ngIf="item.data.timelines.type == 'oneTime'">{{item.data.timelines.endTime | date:'short'}}</div>
+                        <div class="half-flex upper-case" *ngIf="item.data.timelines.type == 'recurring'">{{item.data.timelines.startDate | date:'M/d/yy'}}, {{ item.data.timelines.startTime }}</div>
+                        <div class="half-flex upper-case" *ngIf="item.data.timelines.type == 'recurring'">{{item.data.timelines.endDate | date:'M/d/yy'}}, {{ item.data.timelines.endTime }}</div>
+                        <div class="half-flex">{{item.data.eventDetails.isDeployed == true || item.data.eventDetails.isDeployed == false ? (item.data.eventDetails.isDeployed ? 'Active' : 'Inactive') : 'N/A' }}
+                        </div>
+                        <div class="half-flex">
+                            <span (click)="getEventDetails(item)" class="action-btn"><i class="fa fa-pencil"
+                                    aria-hidden="true"></i></span>
+                            <span (click)="deleteEvent(item)" class="action-btn"><i class="fa fa-trash"
+                                    aria-hidden="true"></i></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <pagination-controls *ngIf="events.length >10" (pageChange)="pageNo = $event"></pagination-controls>
+        <div class="align-center" *ngIf="events && events.length == 0">No data found</div>
+    </div>
+
+    <div *ngIf="!isLoading && (homeEvents && homeEvents.length && currentlyChecked==='HomeScreenUpdateForm')">
+        <div class="table-wrapper">
+            <div class="table-grid">
+                <div class="table-row table-head1">
+                    <div>Event</div>
+                    <div class="half-flex">Position</div>
+                    <div class="half-flex">Type</div>
+                    <!-- <div class="half-flex">Enabled</div> -->
+                    <div class="half-flex">Deploy to dev</div>
+                    <div class="half-flex">Deploy to prod</div>
+                    <div class="half-flex">Action</div>
+                </div>
+                <div class="table-body">
+                    <div class="table-row" *ngFor="let item of homeEvents | paginate: { itemsPerPage: 10, currentPage: pageNo }">
+                        <!-- <div>{{item.id.split('_')[0] getItemName(item)}}</div> -->
+                        <div>{{getItemName(item)}}</div>
+                        <div class="half-flex">{{item.config.pos}}</div>
+                        <div class="half-flex">{{item.config.type}}</div>
+                        <!-- <div class="half-flex">{{item.isEnabled}}</div> -->
+                        <div class="half-flex">{{item.isDeployedOnDev}}</div>
+                        <div class="half-flex">{{item.isDeployedOnProd}}
+                        </div>
+                        <div class="half-flex">
+                            <span (click)="getHomeEventDetails(item.id)" class="action-btn"><i class="fa fa-pencil"
+                                    aria-hidden="true"></i></span>
+                            <span (click)="deleteHomeEvent(item.id)" class="action-btn"><i class="fa fa-trash"
+                                    aria-hidden="true"></i></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <pagination-controls *ngIf="homeEvents.length >10" (pageChange)="pageNo = $event"></pagination-controls>
+        <div class="align-center" *ngIf="homeEvents  && homeEvents.length == 0">No data found</div>
+    </div>
+</div>
+<div class="align-center mar-top-26" *ngIf="homeEventFiltered && homeEventFiltered.length == 0">No data found</div>

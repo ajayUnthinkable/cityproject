@@ -1,0 +1,310 @@
+<div class="spinner-wrapper" *ngIf="isShowLoader">
+  <mat-progress-spinner
+    [color]="'primary'"
+    [mode]="'indeterminate'"
+    [diameter]="'50'"
+    [strokeWidth]="'3'"
+    [value]="'100'"
+  >
+  </mat-progress-spinner>
+</div>
+
+<div class="filter-bar">
+  <div class="heading-container">
+    <form [formGroup]="searchRouteForm">
+      <div class="search-input">
+        <span>
+          <mat-icon
+            class="search-icon"
+            *ngIf="!searchRouteForm.get('searchInput').value.length"
+          >
+            search</mat-icon
+          >
+          <mat-icon
+            class="search-icon"
+            (click)="close()"
+            *ngIf="searchRouteForm.get('searchInput').value.length"
+            >close</mat-icon
+          >
+        </span>
+        <input
+          type="text"
+          placeholder="Search Route"
+          (keyup)="onSearch($event.target.value)"
+          formControlName="searchInput"
+        />
+      </div>
+    </form>
+  </div>
+  <div *ngIf="userRole === 'polyline executive'" class="display-flex">
+    <app-filter
+      class="mt-8 filter-pos"
+      [list]="filterList"
+      [paramList]="paramList"
+      (onFilterChange)="filterChange($event)"
+    >
+    </app-filter>
+    <button
+      (click)="download('routesSummary')"
+      *ngIf="currentRoute === 'liveRoutes'"
+      class="filter-btn1"
+      type="button"
+    >
+      <i class="fa fa-download" aria-hidden="true"></i> Export
+    </button>
+  </div>
+  <div *ngIf="userRole !== 'polyline executive'" class="display-flex">
+    <app-filter
+      *ngIf="currentRoute === 'liveRoutes'"
+      class="mt-8 filter-pos"
+      [list]="filterList"
+      [paramList]="paramList"
+      (onFilterChange)="filterChange($event)"
+    >
+    </app-filter>
+    <button
+      (click)="download('routesSummary')"
+      *ngIf="currentRoute === 'liveRoutes'"
+      class="filter-btn1"
+      type="button"
+    >
+      <i class="fa fa-download" aria-hidden="true"></i> Export
+    </button>
+    <button
+      class="filter-btn1"
+      style="width: 122px"
+      (click)="addRouteDetail()"
+      *ngIf="currentRoute === 'liveRoutes' && userRole !== 'data executive'"
+    >
+      <mat-icon class="icon1">add</mat-icon>
+      <span class="add-route"> New Route </span>
+    </button>
+    <button
+      class="filter-btn1"
+      (click)="uploadMultipleFiles()"
+      *ngIf="currentRoute === 'liveRoutes'"
+    >
+      Upload
+    </button>
+    <button
+      class="exportIcon filter-btn1"
+      (click)="uploadMultipleFiles()"
+      *ngIf="currentRoute === 'liveRoutes'"
+    >
+      <!-- <fa-icon [icon]="faSort" class="fa"></fa-icon> -->
+      <i class="fa fa-angle-down"></i>
+    </button>
+    <button
+      class="filter-btn1 width-button"
+      (click)="confirmUpload()"
+      *ngIf="currentRoute === 'reviewRoutes'"
+    >
+      <mat-icon class="reply-icon">reply</mat-icon>
+      <span class="push-button">Deploy</span>
+    </button>
+  </div>
+</div>
+<div class="table-wrapper" *ngIf="routeList.length">
+  <div class="table-grid1">
+    <div class="table-row table-head">
+      <div class="flex-5">
+        Route
+        <span class="sorting-icon" (click)="sortName()">
+          <fa-icon
+            [ngClass]="isNameSortClick && isNameSortAsc ? 'theme-color' : ''"
+            class="fa fa-sort-asc"
+          >
+          </fa-icon>
+          <fa-icon
+            [ngClass]="isNameSortClick && !isNameSortAsc ? 'theme-color' : ''"
+            class="fa fa-sort-desc"
+          >
+          </fa-icon>
+        </span>
+      </div>
+      <div class="flex-5">Route Id</div>
+      <!-- <div class="flex-5" [ngClass]="currentRoute === 'reviewRoutes'? 'rw-padding' : ''">Service Tag
+            </div> -->
+      <div class="flex-5">Service Tag</div>
+      <div>Start Stop</div>
+      <div>End Stop</div>
+      <!-- <div class="flex-4">Direction</div> -->
+      <!-- <div class="flex-5" [ngClass]="currentRoute === 'reviewRoutes'? 'rw-padding-dir' : ''">Direction</div>
+            <div class="flex-5" [ngClass]="currentRoute === 'reviewRoutes'? 'rw-padding-sts' : ''">Status</div>
+            <div  *ngIf="currentRoute === 'reviewRoutes'" [ngClass]= "currentRoute === 'reviewRoutes'?'rw-padding-chng':''">Changes</div> -->
+      <div class="flex-5">Direction</div>
+      <div class="flex-5">Status</div>
+      <!-- <div  *ngIf="currentRoute === 'reviewRoutes'" [ngClass]= "currentRoute === 'reviewRoutes'?'rw-padding-chng':''">Changes</div> -->
+      <div class="flex-5" *ngIf="currentRoute === 'reviewRoutes'">Changes</div>
+      <div class="flex-action-btn">Action</div>
+    </div>
+    <div class="table-body1">
+      <div
+        class="table-row"
+        *ngFor="
+          let route of routeList
+            | paginate: { itemsPerPage: 10, currentPage: pageNo }
+        "
+      >
+        <div class="flex-5 tooltip" *ngIf="route.route_name">
+          <span
+            [ngClass]="
+              currentRoute === 'reviewRoutes'
+                ? 'route-name1 overflow-hidden'
+                : 'route-name overflow-hidden'
+            "
+            class="route-name overflow-hidden"
+          >
+            {{ route.route_name }}
+          </span>
+          <div class="tooltiptext">
+            <span>{{ route.route_name }}</span
+            ><br />
+          </div>
+        </div>
+        <div class="flex-4" *ngIf="!route.route_name">{{ "N/A" }}</div>
+        <div class="flex-5 tooltip" *ngIf="route.route_id">
+          <!-- <span class="route-name overflow-hidden"> -->
+          {{ route.route_id }}
+          <!-- </span> -->
+          <div class="flex-5 tooltiptext">
+            <span>{{ route.route_id }}</span
+            ><br />
+          </div>
+        </div>
+        <div class="flex-4" *ngIf="!route.route_id">{{ "N/A" }}</div>
+        <!-- <div class="flex-5 " *ngIf="route.serviceTag && route.serviceTag.length"> -->
+        <div
+          class="flex-5 padding-top"
+          *ngIf="route.serviceTag && route.serviceTag.length"
+        >
+          <span *ngFor="let serviceTag of route.serviceTag; let index = index">
+            {{ serviceTag }}
+            <span *ngIf="index < route.serviceTag.length - 1">,</span>
+          </span>
+        </div>
+        <div
+          class="flex-5 padding-top"
+          *ngIf="!route.serviceTag || !route.serviceTag.length"
+        >
+          {{ "N/A" }}
+        </div>
+        <div class="tooltip">
+          <span class="stop overflow-hidden">
+            {{ route.first_stop_name || "N/A" }}
+          </span>
+          <div class="tooltiptext" *ngIf="route.first_stop_name">
+            <span>{{ route.first_stop_name }}</span
+            ><br />
+          </div>
+        </div>
+        <div class="tooltip">
+          <span class="stop overflow-hidden">
+            {{ route.last_stop_name || "N/A" }}
+          </span>
+          <div class="tooltiptext" *ngIf="route.last_stop_name">
+            <span>{{ route.last_stop_name }}</span
+            ><br />
+          </div>
+        </div>
+        <div class="flex-5 padding-top" *ngIf="route.direction">
+          {{ route.direction || "N/A" }}
+        </div>
+        <div class="flex-5 padding-top">{{ route.sync_status || "N/A" }}</div>
+        <div
+          class="tooltip flex-5"
+          *ngIf="
+            currentRoute === 'reviewRoutes' &&
+            route.changes &&
+            route.changes.length
+          "
+        >
+          <div
+            class="changes overflow-hidden"
+            *ngFor="let changes of route.changes; let i = index"
+          >
+            {{ changes }}
+            <span *ngIf="i < route.changes.length - 1">,</span><br />
+          </div>
+          <div class="tooltiptext">
+            <div *ngFor="let changes of route.changes; let i = index">
+              {{ changes }}
+              <span *ngIf="i < route.changes.length - 1">,</span>
+            </div>
+          </div>
+        </div>
+        <div
+          *ngIf="
+            (currentRoute === 'reviewRoutes' && !route.changes) ||
+            (route.changes && !route.changes.length)
+          "
+        >
+          N/A
+        </div>
+        <div class="action-btn2 flex-action-btn">
+          <img
+            class="actn-icon"
+            *ngIf="
+              currentRoute !== 'reviewRoutes' &&
+              userRole !== 'data executive' &&
+              userRole !== 'polyline executive'
+            "
+            src="../../../assets/images/pencil-alt-solid.png"
+            (click)="editRoute(route)"
+          />
+          <span mat-button [matMenuTriggerFor]="menu" class="action">
+            <mat-icon [matMenuTriggerFor]="menu">more_vert</mat-icon>
+          </span>
+          <mat-menu #menu="matMenu" class="customize-mat-menu">
+            <!-- <button mat-menu-item class="menu-button" (click)="viewRouteDetails(route.route_id)">Route
+                            details</button> -->
+            <button
+              mat-menu-item
+              class="menu-button"
+              (click)="viewStops(route.route_id, route.route_name)"
+              *ngIf="userRole !== 'polyline executive'"
+            >
+              Stop Details
+            </button>
+            <button
+              mat-menu-item
+              class="menu-button"
+              (click)="viewFare(route.route_id, route.transportType)"
+              *ngIf="userRole !== 'polyline executive'"
+            >
+              Fare Chart
+            </button>
+            <button
+              mat-menu-item
+              class="menu-button"
+              (click)="
+                navigateToMap(
+                  route.route_id,
+                  route.route_name,
+                  route.agency_name
+                )
+              "
+            >
+              Polyline
+            </button>
+            <button
+              mat-menu-item
+              class="menu-button"
+              (click)="viewTimeTable(route.route_id)"
+              *ngIf="userRole !== 'polyline executive'"
+            >
+              Time Table
+            </button>
+          </mat-menu>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<pagination-controls
+  *ngIf="routeList.length > 10"
+  (pageChange)="pageNo = $event"
+></pagination-controls>
+<div class="align-center" *ngIf="!isShowLoader && !routeList.length">
+  No data found
+</div>

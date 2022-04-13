@@ -1,0 +1,320 @@
+<form [formGroup]="homeScreenUpdateForm">
+        <div>
+            <div class="item-wrapper">
+                <div class="item-title">Event Name</div>
+                <div><input class="name-input" type="text" formControlName="eventName"></div>
+            </div>
+            <div class="item-wrapper">
+                <div class="item-title">Position</div>
+                <div><input  
+                    class="name-input" 
+                    type="number" 
+                    min="0" 
+                    max="9" 
+                    formControlName="position"></div>
+            </div>
+            <div class="item-wrapper">
+                <div class="item-title">Source</div>
+                <div>
+                    <mat-form-field>
+                        <mat-select formControlName="source" multiple>
+                            <mat-option [value]="'app'">App</mat-option>
+                            <mat-option [value]="'web'">Web</mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+            </div>
+            <div formArrayName='cities'>
+                <div *ngFor="let control of getCityControls(); let i=index">
+                    <div class="item-wrapper" [formGroupName]="i">
+                        <div class="item-title">City</div>
+                        <div>
+                            <mat-form-field>
+                                <mat-select formControlName="cityName"   appearance="fill" [compareWith]="compState">
+                                    <mat-option *ngFor="let city of getRemainingCities(control.value,i); let c = index" [value]="city">{{city}} </mat-option>                                
+                                </mat-select>
+                            </mat-form-field>
+                        </div>
+                        <div class="item-title margin-left">
+                            <div class="box-remove-col justify-right" >
+                                <div style="margin-right: 1.9rem;" class="wrapper-remove" (click)="removeCity(i, control.value)" *ngIf='getCityControls().length > 1'>
+                                    <i class="material-icons"  style="color: #f28100;">delete</i>
+                                    <span class="remove-category-btn" style="font-size: 14px;">Remove</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="new-city" *ngIf="getControlCount() < getArrayLength(allPossibleCities)" (click)="addNewCity()">
+                                                    <svg height="30" viewBox="0 0 24 24" width="30" style="fill: #f28100"><path d="M0 0h24v24H0V0z" fill="none"/><path d="M13 7h-2v4H7v2h4v4h2v-4h4v-2h-4V7zm-1-5C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8z"/>
+                                                    </svg>
+                                                    <span style="margin-left: 8px">Add New City</span>    
+                </div>
+            </div>
+        </div>
+       <div class="section-wrapper">
+            <div>
+                <div class="toggle-title">
+                    <div >Headers</div>
+                    <mat-slide-toggle formControlName="isCTAScreen" color="primary">
+                    </mat-slide-toggle>
+                </div>
+                <div class="banner-item-wrapper" *ngIf="homeScreenUpdateForm.get('isCTAScreen').value">
+                    <div class="item-wrapper">
+                        <div class="item-title">Header Title</div>
+                        <div><input  
+                            class="name-input light-bg" 
+                            formControlName="name" 
+                            type="text"></div>
+                    </div>
+                    <div class="item-wrapper">
+                        <div class="item-title">Button Label</div>
+                        <div><input  
+                            class="name-input light-bg" 
+                            formControlName="rightSideCTAName" 
+                            type="text"></div>
+                    </div>
+                    <div class="item-wrapper">
+                        <div class="item-title">Button Link</div>
+                        <div><input  
+                            class="name-input light-bg" 
+                            formControlName="rightSideCTALink" 
+                            type="text"></div>
+                    </div>
+                </div>
+            </div>
+        </div>   
+        
+    <div formArrayName="cards">
+    <div cdkDropList (cdkDropListDropped)="drop($event)">       
+        <div  
+        *ngFor="let card of cardFormGroup.controls; let i = index;" cdkDrag [cdkDragDisabled]="cardFormGroup.controls.length==1">
+        <ng-container  *ngIf="card && card.get('cardType').value">
+            <div  class="section-wrapper"  [formGroupName]="i">
+                <div>
+                    <div>Card Details</div>
+                </div> 
+                <div class="banner-item-wrapper">
+                    <div class="item-wrapper">
+                        <div class="item-title">Type</div>
+                        <div>
+                            <mat-form-field>
+                                <mat-select (selectionChange)="formChangesEvent(card.get('cardType').value,i)" formControlName="cardType">
+                                    <mat-option [value]="'image'">Image</mat-option>
+                                    <mat-option [value]="'text'">Text</mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                        </div>
+                    </div>
+            
+                     <div *ngIf="card.get('cardType').value == 'text'" >
+                        <div class="item-wrapper">
+                            <div class="item-title">Title</div>
+                            <div><input  
+                                class="name-input light-bg" 
+                                formControlName="cardDetailTitle" 
+                                type="text"></div>
+                        </div>
+                        <div class="item-wrapper">
+                            <div class="item-title">Text</div>
+                            <div><input  
+                                  class="name-input light-bg" 
+                                  formControlName="cardDetailText" 
+                                  type="text"></div>
+                        </div>
+                        <div class="item-wrapper">
+                            <div class="item-title">CTA</div>
+                            <div><input  
+                                class="name-input light-bg" 
+                                formControlName="cardDetailCTAText" 
+                                type="text"></div>
+                        </div>
+                        <div class="item-wrapper icon-wrapper">
+                            <div class="item-title">Icons</div>
+                            <div class="img-wrapper">
+                                <div *ngFor="let bgImage of bgImagesForRoute"
+                                    [ngClass]="card.get('routeBannerIcon').value == bgImage ? 'border' : ''"
+                                    (click)="setImageUrl(bgImage,'routeBannerIcon',i)" class="background-image-style"
+                                    [style.background-image]="getImage(bgImage)">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="item-wrapper icon-wrapper">
+                           <img  [ngClass]="card.get('iconImages1').value ? 'border' : ''" [src]="card.get('iconImages1').value" height="50">
+                           <div class="img-btn" *ngIf="!card.get('iconImages1').value">
+                              <button type="button" (click)="fileInput.click()">
+                                 <span>Upload File</span>
+                                 <input #fileInput 
+                                 type="file" 
+                                 accept="image/*" 
+                                 (change)="onSelectFile($event,i,'icon')" 
+                                 style="display:none;" />
+                              </button>
+                           </div>
+                           <div *ngIf="card.get('iconImages1').value">
+                            <div class="edit-icon-btn" (click)="fileInput.click()">
+                               <span class="action-btn">
+                                   <i class="fa fa-pencil fa-2x" aria-hidden="true">
+                                   <input #fileInput 
+                                          type='file' 
+                                          accept="image/*" 
+                                          (change)="onSelectFile($event,i,'icon')" 
+                                          style="display:none;">
+                                   </i>
+                               </span>
+                            </div>      
+                        </div>   
+                     </div>
+                 </div> 
+        
+                     <div *ngIf="card.get('cardType').value == 'image'" >
+                         <div class="image-edit-btn" *ngIf="card.get('cardImages1').value">
+                             <img [src]="card.get('cardImages1').value" height="200">
+                             <div *ngIf="card.get('cardImages1').value">
+                                <div class="edit-btn" (click)="fileInput.click()">
+                                   <span class="action-btn">
+                                       <i  style="margin-left: 8px"  class="fa fa-pencil fa-2x" aria-hidden="true">
+                                       <input #fileInput 
+                                              type='file' 
+                                              accept="image/*" 
+                                              (change)="onSelectFile($event,i,'image')" 
+                                              style="display:none;">
+                                       </i>
+                                   </span>
+                                </div>      
+                            </div>
+                         </div> 
+                           <div class="img-btn" *ngIf="!card.get('cardImages1').value">
+                              <button type="button" (click)="fileInput.click()">
+                                 <span>Upload Image</span>
+                                 <input #fileInput 
+                                 type="file" 
+                                 accept="image/*" 
+                                 (change)="onSelectFile($event,i,'image')" 
+                                 style="display:none;" />
+                              </button>
+                           </div>
+                           <!-- <div *ngIf="card.get('cardImages1').value">
+                               <div class="edit-btn" >
+                                  <span class="action-btn">
+                                      <i (click)="fileInput.click()" style="margin-left: 8px"  class="fa fa-pencil fa-2x" aria-hidden="true">
+                                      <input #fileInput 
+                                             type='file' 
+                                             accept="image/*" 
+                                             (change)="onSelectFile($event,i,'image')" 
+                                             style="display:none;">
+                                      </i>
+                                  </span>
+                               </div>      
+                           </div> -->
+                        <div class="item-wrapper">
+                             <div class="item-title">CTA</div>
+                             <div><input  class="name-input light-bg" 
+                                          formControlName="cardDetailImageCTA" 
+                                          type="text"></div>
+                         </div>      
+                    </div> 
+                </div>  
+                <div>
+                    <span class="arrow"  cdkDragHandle *ngIf="cardFormGroup.controls.length > 1">
+                        <img src="../../../../../assets/images/zoom-out.png" />
+                    </span> 
+                </div>
+                <div [ngClass]="{'del-btn':card.get('cardImages').value || card.get('cardType').value=='text','del-btn1':!card.get('cardImages').value && card.get('cardType').value=='image'}" *ngIf="cardFormGroup.controls.length > 1" >
+                    <span (click)="removeCard(i)" class="action-btn"><i  class="fa fa-trash  fa-2x" aria-hidden="true"></i></span>
+                </div> 
+            </div>
+        </ng-container>
+        
+        </div>  
+    </div>
+    </div>
+        <div class="new-category" (click)="addNewCard()">
+            <svg height="30" viewBox="0 0 24 24" width="30" style="fill: #f28100"><path d="M0 0h24v24H0V0z" fill="none"/><path d="M13 7h-2v4H7v2h4v4h2v-4h4v-2h-4V7zm-1-5C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8z"/>
+            </svg>
+            <span style="margin-left: 8px">Add Cards</span>
+        </div>
+    <div class="section-wrapper">
+        <div>
+            <div>Timeline</div>
+        </div>
+        <div class="banner-item-wrapper">
+            <div class="item-wrapper">
+                <div class="item-title">Start date</div>
+                <div>
+                    <input class="calender-style" 
+                           formControlName="startDate" 
+                           matInput [matDatepicker]="picker">
+                    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                    <mat-datepicker #picker></mat-datepicker>
+                </div>
+            </div>
+            <div class="item-wrapper">
+                <div class="item-title">Start time</div>
+                <div>
+                    <input class="calender-style" 
+                           formControlName="startTime" 
+                           [ngxTimepicker]="pickerStart"
+                           readonly>
+                    <ngx-material-timepicker #pickerStart></ngx-material-timepicker>
+                </div>
+            </div>
+            <div class="item-wrapper">
+                <div class="item-title">End date</div>
+                <div>
+                    <input class="calender-style" 
+                           formControlName="endDate" 
+                           matInput [matDatepicker]="picker1">
+                    <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+                    <mat-datepicker #picker1></mat-datepicker>
+                </div>
+            </div>
+            <div class="item-wrapper">
+                <div class="item-title">End time</div>
+                <div>
+                    <input class="calender-style" 
+                           formControlName="endTime" 
+                           [ngxTimepicker]="pickerEnd" readonly>
+                    <ngx-material-timepicker #pickerEnd></ngx-material-timepicker>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="submitButtons" *ngIf="mode==='edit'">
+        <div class="button-wrapper">
+            <button [disabled]="!homeScreenUpdateForm.valid" class="filter-btn"
+            type="button" (click)="submit()">Save</button>
+        </div>
+        <div class="button-wrapper">
+            <button [disabled]="!homeScreenUpdateForm.valid" class="filter-btn"
+            type="button" (click)="deploy('dev')">deployToDev</button>
+        </div>
+        <div class="button-wrapper">
+            <button [disabled]="!homeScreenUpdateForm.valid" class="filter-btn"
+            type="button" (click)="deploy('prod')">deployToProd</button>
+        </div>
+        <div class="button-wrapper">
+            <button class="filter-btn"
+            type="button" (click)="cancel()">Cancel</button>
+        </div>
+    </div>
+    <div class="submitButtons" *ngIf="mode==='add'">
+        <div class="button-wrapper">
+            <button [disabled]="!homeScreenUpdateForm.valid || isSaveDisabled" class="filter-btn"
+            type="button" (click)="submit()">Save</button>
+        </div>
+        <div class="button-wrapper">
+            <button [disabled]="!isSaveDisabled" class="filter-btn"
+            type="button" (click)="deploy('dev')">deployToDev</button>
+        </div>
+        <div class="button-wrapper">
+            <button [disabled]="!isSaveDisabled" class="filter-btn"
+            type="button" (click)="deploy('prod')">deployToProd</button>
+        </div>
+        <div class="button-wrapper">
+            <button class="filter-btn"
+            type="button" (click)="cancel()">Cancel</button>
+        </div>
+    </div>
+</form>
+

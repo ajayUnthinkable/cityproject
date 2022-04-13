@@ -1,0 +1,18 @@
+<div *ngIf="!bgImagesForRoute || !bgImagesForHome || !routes" class="spinner-wrapper">
+    <mat-progress-spinner class="example-margin" [color]="'primary'" [mode]="'indeterminate'" [diameter]="'50'"
+        [strokeWidth]="'3'" [value]="'100'">
+    </mat-progress-spinner>
+</div>
+<div *ngIf="bgImagesForRoute && bgImagesForRoute.length && bgImagesForHome && bgImagesForHome.length && routes && routes.length"
+    class="main-container-event-form">
+    <div class="title-font">Event Details</div>
+    <div class="form-check-button">
+        <section class="checkbox-section">
+            <mat-checkbox class="checkbox-margin" color="primary" [checked]="currentlyChecked === 'HomeScreenUpdateForm'" (change)="selectCheckBox('HomeScreenUpdateForm',$event)" >Home Screen Updates</mat-checkbox>
+            <mat-checkbox class="checkbox-right" color="primary" [checked]="currentlyChecked === 'DisruptionFormComponent'" (change)="selectCheckBox('DisruptionFormComponent',$event)">Disruption Updates</mat-checkbox>
+        </section>
+    </div>
+    <app-disruption-form *ngIf="currentlyChecked === 'DisruptionFormComponent'"></app-disruption-form>
+    <app-home-screen-form *ngIf="currentlyChecked === 'HomeScreenUpdateForm'"></app-home-screen-form>
+    
+</div>

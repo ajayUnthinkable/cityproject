@@ -1,0 +1,57 @@
+<div *ngIf="isSaveInLocal" class="spinner-wrapper spinner-wrapper-map">
+    <mat-progress-spinner class="example-margin" [color]="'primary'" [mode]="'indeterminate'" [diameter]="'50'"
+        [strokeWidth]="'3'" [value]="'100'">
+    </mat-progress-spinner>
+</div>
+<div class="main-map-wrapper">
+    <div class="route-wrapper">
+        <div *ngIf="this.routeDetails">
+            <h3 class="heading">Route: {{this.route_name}}
+                {{'(' + this.routeDetails.first_stop.stop_name + ' - ' + this.routeDetails.last_stop.stop_name + ')'}}
+            </h3>
+            <!-- <mat-icon class="icon" (click)="cancel()">clear</mat-icon> -->
+        </div>
+        <div class="checkbox-container">
+            <div class="conflicts" *ngIf="paths && paths.status != 'completed'"><span class="segment-count">Segments : {{currentSegment}}/{{totalSegments}}</span>   Conflicts pending: {{getConflicts()}}</div>
+            <div class="accuracy" *ngIf="this.accuracy">Accuracy : {{this.accuracy}}</div>
+            <div class="checkbox-btn" *ngIf="this.allPoints && this.allPoints.length">
+                <mat-checkbox   [checked]='isAllChecked' (change)="getCheckedPolyline()" class="example-margin">All Polyline</mat-checkbox>
+            </div>
+        </div>
+    </div>
+    <div #map class="map-wrapper"></div>
+    <div id="marker-tooltip"></div>
+    <div class="next-btn-wrapper">
+        <button *ngIf="!isCustomSelected && (paths && paths.status != 'completed') && isPreview"
+            [disabled]="conflictPathIndex < 1 || isSubmitRequest || !isPreview" (click)="prevConflict()"
+            class="next-btn">Prev</button>
+        <button *ngIf="!isCustomSelected && (paths && paths.status != 'completed') && isPreview"
+            [disabled]="(conflictPathIndex > conflictPaths.length - 2) || isSubmitRequest || !isPreview"
+            (click)="nextConflict()" class="next-btn">Next</button>
+            <button *ngIf="paths && paths.status != 'completed' && isCustomSelected && isPreview" [disabled]="!isCustomSelected" (click)="clear()"
+            class="next-btn">Clear</button>
+            <div class="tooltip">
+                <button *ngIf="paths && paths.status != 'completed' && isPreview && isCustomSelected" [disabled]="isSubmitRequest || !isPreview || !customMarkerArray?.length"
+                (click)="removeLastCustomPoly(customPolyObj)"
+                class="next-btn tooltip">Undo</button>
+                    <span class="tooltiptext">Undo(Ctrl+Z)</span>
+            </div>
+        <button *ngIf="paths && paths.status != 'completed' && isPreview" [disabled]="isSubmitRequest || !isPreview"
+            (click)="isCustomSelected ? saveCustomPoly() : drawCustom()"
+            class="next-btn">{{isCustomSelected ? 'Done' : 'Custom Route'}}</button>
+        <!-- <button *ngIf="paths && paths.status != 'completed' && isCustomSelected && isPreview" [disabled]="!isCustomSelected" (click)="clear()"
+            class="next-btn">CLEAR</button> -->
+        <button *ngIf="paths && paths.status != 'completed' && !isCustomSelected" [disabled]="isSubmitRequest" (click)="previewAllPaths()"
+            class="next-btn">{{isPreview ? 'Preview' : 'Back'}}</button>
+        <!-- <button *ngIf="paths && paths.status != 'completed' && isPreview" [disabled]="isSaveInLocal" (click)="saveInLocalStorage()"
+            class="next-btn">Save</button> -->
+        <button *ngIf="!isCustomSelected && (paths && paths.status != 'completed')" [disabled]="getConflicts() > 0 || isSubmitRequest"
+            (click)="submit()" class="next-btn">Submit</button>
+        <!-- <button *ngIf="paths && paths.status != 'completed'" [disabled]="isSubmitRequest"
+                (click)="clearStorage()" class="next-btn font-12">CLEAR STORAGE</button> -->
+        <button *ngIf="paths && paths.status == 'completed'" [disabled]="isSubmitRequest" (click)="reset()"
+            class="next-btn">Reset</button>
+        <button *ngIf="paths && paths.status == 'completed' && paths.selectedPoly.length > 1"
+            [disabled]="isSubmitRequest" (click)="edit()" class="next-btn">Edit</button>
+    </div>
+</div>

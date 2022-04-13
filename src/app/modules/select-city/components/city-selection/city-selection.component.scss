@@ -1,0 +1,61 @@
+.city-selection-wrapper {
+    width: 396px;
+    margin: auto;
+    background: #fff;
+    padding: 0;
+  
+    .text {
+      font-weight: 600;
+      margin-bottom: 10px;
+    }
+  
+    .select-wrapper {
+      display: flex;
+    }
+  
+    .select-text {
+      align-self: center;
+      width: 100px;
+    }
+  
+    .mat-form-field {
+      width: 100%;
+    }
+  
+    .done-btn {
+      margin-top: 20px;
+      text-align: right;
+    }
+  }
+  
+  .upper-case-wrapper {
+    mat-select {
+      text-transform: uppercase;
+    }
+  }
+  
+  .upper-case {
+    text-transform: uppercase;
+  }
+  
+  app-select-city {
+    .logo {
+      height: 65px;
+      width: 170px;
+      margin: auto;
+      background-repeat: no-repeat;
+      background-position: center;
+      margin-top: 0;
+      background-size: contain;
+    }
+  }
+  
+  .disabled {
+    pointer-events: none;
+    opacity: .5;
+  }
+
+  
+  // ::ng-deep .cdk-overlay-connected-position-bounding-box  > ::ng-deep .cdk-overlay-pane:before {
+  //   content: none;
+  // }

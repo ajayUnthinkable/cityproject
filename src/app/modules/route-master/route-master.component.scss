@@ -1,0 +1,351 @@
+@import '../../../theme/variables.scss';
+
+  .filter-bar {
+    -webkit-display: flex;
+    -moz-display: flex;
+    display: flex;
+    justify-content: space-between;
+    padding: 15px;
+  
+    .search-input {
+      position: relative;
+      display: inline-block;
+      margin-right: 30px;
+  
+      input {
+        height: 40px;
+        width: 230px;
+        border: 1px solid #999;
+        padding: 5px 15px;
+        font-size: 14px;
+        outline: none;
+        background: transparent;
+      }
+  
+      .fa {
+        position: absolute;
+        right: 10px;
+        top: 12px;
+        width: fit-content;
+        color: black;
+      }
+    }
+  
+    .filter-btn1 {
+      font-size: 14px;
+      padding: 10px 15px;
+      background: #f28100;
+      border: none;
+      color: #fff;
+      outline: none;
+      margin-left: 15px;
+      cursor: pointer;
+      font-weight: bold;
+      position: relative;
+      height: 36px;
+  
+      .fa {
+        margin-right: 5px;
+      }
+    }
+  }
+  .heading {
+    font-weight: 500;
+    font-size: 25px;
+  }
+  .heading-container {
+    width: 43%;
+    display: flex;
+    justify-content: space-between;
+  }
+  .table-wrapper {
+    padding: 0 13px;
+  
+    .table-grid1 {
+      font-size: 15px;
+      background: #fff;
+      border: 1px solid #ddd;
+      overflow: auto;
+    }
+  
+    .table-row {
+      display: flex;
+      border-top: 1px solid #ddd;
+      align-items: center;
+      word-break: break-word;
+  
+      > div {
+        flex: 1;
+        padding: 15px;
+        // padding: 10px;
+      }
+    }
+  
+    .table-head {
+      font-weight: 500;
+      border: 0;
+      // width: calc(100% - 18px);
+      font-size: 16px;
+    }
+  
+    .table-body1 {
+      width: 100%;
+      // max-height: calc(100vh - 205px);
+      max-height: calc(100vh - 188px);
+      // overflow: auto;
+      font-size: 15px;
+      min-height: 116px;
+    }
+  
+    .action-btn2 {
+      font-size: 17px;
+      padding: 0 5px;
+      display: inline-block;
+      cursor: pointer;
+      // margin-right: 5px;
+  
+      .actn-icon {
+        width: 15px;
+        position: relative;
+        top: -5px;
+        left: 14px;
+      }
+    }
+  }
+  
+  .action {
+    cursor: pointer;
+    margin-left:12px;
+  }
+
+
+
+
+.mb-0 {
+  margin-bottom: 0px;
+}
+
+::ng-deep .customize-mat-menu {
+  background: black !important;
+  width: 150px;
+  padding-bottom: 20px;
+}
+
+.menu-button {
+  color: #ffff;
+}
+
+.menu-button:hover {
+  color: #fe7c00;
+}
+
+.align-center {
+  text-align: center;
+}
+.align-end {
+  text-align: end;
+}
+
+.mat-menu-item {
+  height: 38px;
+}
+
+.exportIcon {
+  margin-left: 01px !important;
+}
+
+.flex-7 {
+  flex: 0.7 !important;
+}
+
+.flex-1 {
+  flex: 0.1 !important;
+}
+
+.flex-5 {
+  flex: 0.5 !important;
+}
+.width-button {
+  min-width: 100px;
+}
+
+.direction {
+  position: relative;
+}
+
+.stop {
+  position: absolute;
+  // padding-left: 04px;
+  // width: 200px !important;
+  top: 4px;
+}
+
+.flex-3 {
+  flex: 0.3 !important;
+}
+
+.flex-action-btn {
+  flex:0.5 !important;
+}
+
+.flex-4 {
+  flex: 0.4 !important;
+}
+
+.tooltip {
+  position: relative;
+}
+
+.overflow-hidden {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  width: 90%;
+}
+
+.display-flex {
+  display: flex;
+}
+
+.tooltiptext {
+  /* hide and position tooltip */
+  top: 30px;
+  background-color: #000;
+  color: white;
+  border-radius: 5px;
+  visibility: hidden;
+  position: absolute;
+  padding: 8px;
+  padding-bottom: 0px;
+  font-size: 14px;
+  opacity: 1;
+  z-index: 99999999;
+}
+
+.tooltip:hover .tooltiptext {
+  /* display tooltip on hover */
+  visibility: visible;
+}
+
+.route-name {
+  position: absolute;
+  top: 04px;
+  // padding-left: 04px;
+  // width: 100px !important;
+  width: 94 px !important;
+}
+
+.route-name1 {
+  position: absolute;
+  top: 04px;
+  // padding-left: 15px;
+  // width: 100px !important;
+  width: 87px !important;
+}
+
+
+.sorting-icon {
+  display: inline-block;
+  position: relative;
+  margin-left: 3px;
+  cursor: pointer;
+
+  .fa-sort-desc {
+    position: absolute;
+    left: 0;
+    margin-top: 03px;
+  }
+}
+
+.theme-color {
+  color: map-get($map: $colors, $key: primary);
+}
+
+.icon1 {
+  position: absolute;
+  left: 6px;
+  top: 8px;
+
+  //changes 
+    position: absolute;
+    left: 3px;
+    top: 6px;
+}
+
+.add-route {
+  // margin-left: 20px;
+  margin-left: 6px;
+}
+
+.reply-icon {
+  position: absolute;
+  bottom: 10px;
+  left: 10px;
+  transform: scaleX(-1) rotate(92deg);
+}
+
+.push-button {
+  margin-left: 25px;
+}
+
+.search-icon {
+  position: absolute;
+  color: black;
+  top: 9px;
+  right: 5px;
+  font-size: 20px;
+  cursor: default;
+}
+
+.padding-top {
+  padding-top: 20px;
+}
+
+
+::ng-deep .mat-dialog-container{
+  overflow-x: hidden !important;
+}
+
+.filter-icon-position{
+  position: absolute;
+  right: 265px;
+  // margin-right: 10px;
+ }
+
+ .app-btn {
+  height: 32px;
+  width: 110px;
+  background: #fe7c00;
+  border: none;
+  color: #fff;
+  outline: 0;
+  cursor: pointer;
+  border-radius: 2px;
+}
+
+.mt-8 {
+  // margin-top: 8px;
+  margin-top: 6px;
+  margin-right: -13px;
+}
+
+.filter-pos {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding-right: 6px;
+  // font-size: 13px;
+  // opacity: 0.8 ;
+}
+
+
+.changes {
+  max-width: 119px;
+  @media (max-width: 1600px) {
+      max-width: 72px; // or whatever
+  }
+  
+  @media (min-width: 1900px) {
+    width: auto; // or whatever
+   }
+}

@@ -1,0 +1,88 @@
+.filter-btn {
+  font-size: 14px;
+  padding: 09px 15px;
+  background: #f28100;
+  border: none;
+  color: #fff;
+  outline: none;
+  margin-left: 15px;
+  cursor: pointer;
+  font-weight: bold;
+  position: relative;
+  width: 80px;
+}
+
+.action-btn {
+  margin-top: 16px;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.heading {
+  font-weight: 500;
+}
+
+.dialoge-wrapper {
+  min-width: 500px;
+}
+
+.cancel {
+  background: #eeeeee;
+  color: black;
+}
+
+.display-flex {
+  display: flex;
+  justify-content: space-between;
+}
+.info {
+  font-weight: 600;
+  font-size: 17px;
+  padding: 22px 0px;
+  border-bottom: 2px solid lightgray;
+}
+
+.route-info {
+  padding: 10px 0px;
+}
+
+.details {
+  font-size: 15px;
+  font-weight: 400;
+}
+
+.detailed-info {
+  padding: 05px 0px;
+  font-size: 14px;
+}
+
+
+.pointer {
+    cursor: pointer;
+}
+
+.stop-details {
+    height: 150px;
+    overflow: auto;
+}
+
+.stops {
+    padding: 05px 0px;
+}
+
+.info-container {
+    max-height: 400px;
+    overflow: auto;
+}
+
+.upload {
+    font-weight: 400;
+}
+
+.rotate-180 {
+    transform: rotate(180deg);
+}
+
+.rotate-0{
+    transform: rotate(0deg);
+}

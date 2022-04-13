@@ -1,0 +1,49 @@
+import { EventEmitter } from '@angular/core';
+import { PaginationInstance } from './pagination-instance';
+import * as ɵngcc0 from '@angular/core';
+export declare class PaginationService {
+    change: EventEmitter<string>;
+    private instances;
+    private DEFAULT_ID;
+    defaultId(): string;
+    /**
+     * Register a PaginationInstance with this service. Returns a
+     * boolean value signifying whether the instance is new or
+     * updated (true = new or updated, false = unchanged).
+     */
+    register(instance: PaginationInstance): boolean;
+    /**
+     * Check each property of the instance and update any that have changed. Return
+     * true if any changes were made, else return false.
+     */
+    private updateInstance;
+    /**
+     * Returns the current page number.
+     */
+    getCurrentPage(id: string): number;
+    /**
+     * Sets the current page number.
+     */
+    setCurrentPage(id: string, page: number): void;
+    /**
+     * Sets the value of instance.totalItems
+     */
+    setTotalItems(id: string, totalItems: number): void;
+    /**
+     * Sets the value of instance.itemsPerPage.
+     */
+    setItemsPerPage(id: string, itemsPerPage: number): void;
+    /**
+     * Returns a clone of the pagination instance object matching the id. If no
+     * id specified, returns the instance corresponding to the default id.
+     */
+    getInstance(id?: string): PaginationInstance;
+    /**
+     * Perform a shallow clone of an object.
+     */
+    private clone;
+    static ɵfac: ɵngcc0.ɵɵFactoryDef<PaginationService, never>;
+    static ɵprov: ɵngcc0.ɵɵInjectableDef<PaginationService>;
+}
+
+//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoicGFnaW5hdGlvbi5zZXJ2aWNlLmQudHMiLCJzb3VyY2VzIjpbInBhZ2luYXRpb24uc2VydmljZS5kLnRzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUFBO0FBQ0E7O0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTs7O0FBQ0EiLCJzb3VyY2VzQ29udGVudCI6WyJpbXBvcnQgeyBFdmVudEVtaXR0ZXIgfSBmcm9tICdAYW5ndWxhci9jb3JlJztcclxuaW1wb3J0IHsgUGFnaW5hdGlvbkluc3RhbmNlIH0gZnJvbSAnLi9wYWdpbmF0aW9uLWluc3RhbmNlJztcclxuZXhwb3J0IGRlY2xhcmUgY2xhc3MgUGFnaW5hdGlvblNlcnZpY2Uge1xyXG4gICAgY2hhbmdlOiBFdmVudEVtaXR0ZXI8c3RyaW5nPjtcclxuICAgIHByaXZhdGUgaW5zdGFuY2VzO1xyXG4gICAgcHJpdmF0ZSBERUZBVUxUX0lEO1xyXG4gICAgZGVmYXVsdElkKCk6IHN0cmluZztcclxuICAgIC8qKlxyXG4gICAgICogUmVnaXN0ZXIgYSBQYWdpbmF0aW9uSW5zdGFuY2Ugd2l0aCB0aGlzIHNlcnZpY2UuIFJldHVybnMgYVxyXG4gICAgICogYm9vbGVhbiB2YWx1ZSBzaWduaWZ5aW5nIHdoZXRoZXIgdGhlIGluc3RhbmNlIGlzIG5ldyBvclxyXG4gICAgICogdXBkYXRlZCAodHJ1ZSA9IG5ldyBvciB1cGRhdGVkLCBmYWxzZSA9IHVuY2hhbmdlZCkuXHJcbiAgICAgKi9cclxuICAgIHJlZ2lzdGVyKGluc3RhbmNlOiBQYWdpbmF0aW9uSW5zdGFuY2UpOiBib29sZWFuO1xyXG4gICAgLyoqXHJcbiAgICAgKiBDaGVjayBlYWNoIHByb3BlcnR5IG9mIHRoZSBpbnN0YW5jZSBhbmQgdXBkYXRlIGFueSB0aGF0IGhhdmUgY2hhbmdlZC4gUmV0dXJuXHJcbiAgICAgKiB0cnVlIGlmIGFueSBjaGFuZ2VzIHdlcmUgbWFkZSwgZWxzZSByZXR1cm4gZmFsc2UuXHJcbiAgICAgKi9cclxuICAgIHByaXZhdGUgdXBkYXRlSW5zdGFuY2U7XHJcbiAgICAvKipcclxuICAgICAqIFJldHVybnMgdGhlIGN1cnJlbnQgcGFnZSBudW1iZXIuXHJcbiAgICAgKi9cclxuICAgIGdldEN1cnJlbnRQYWdlKGlkOiBzdHJpbmcpOiBudW1iZXI7XHJcbiAgICAvKipcclxuICAgICAqIFNldHMgdGhlIGN1cnJlbnQgcGFnZSBudW1iZXIuXHJcbiAgICAgKi9cclxuICAgIHNldEN1cnJlbnRQYWdlKGlkOiBzdHJpbmcsIHBhZ2U6IG51bWJlcik6IHZvaWQ7XHJcbiAgICAvKipcclxuICAgICAqIFNldHMgdGhlIHZhbHVlIG9mIGluc3RhbmNlLnRvdGFsSXRlbXNcclxuICAgICAqL1xyXG4gICAgc2V0VG90YWxJdGVtcyhpZDogc3RyaW5nLCB0b3RhbEl0ZW1zOiBudW1iZXIpOiB2b2lkO1xyXG4gICAgLyoqXHJcbiAgICAgKiBTZXRzIHRoZSB2YWx1ZSBvZiBpbnN0YW5jZS5pdGVtc1BlclBhZ2UuXHJcbiAgICAgKi9cclxuICAgIHNldEl0ZW1zUGVyUGFnZShpZDogc3RyaW5nLCBpdGVtc1BlclBhZ2U6IG51bWJlcik6IHZvaWQ7XHJcbiAgICAvKipcclxuICAgICAqIFJldHVybnMgYSBjbG9uZSBvZiB0aGUgcGFnaW5hdGlvbiBpbnN0YW5jZSBvYmplY3QgbWF0Y2hpbmcgdGhlIGlkLiBJZiBub1xyXG4gICAgICogaWQgc3BlY2lmaWVkLCByZXR1cm5zIHRoZSBpbnN0YW5jZSBjb3JyZXNwb25kaW5nIHRvIHRoZSBkZWZhdWx0IGlkLlxyXG4gICAgICovXHJcbiAgICBnZXRJbnN0YW5jZShpZD86IHN0cmluZyk6IFBhZ2luYXRpb25JbnN0YW5jZTtcclxuICAgIC8qKlxyXG4gICAgICogUGVyZm9ybSBhIHNoYWxsb3cgY2xvbmUgb2YgYW4gb2JqZWN0LlxyXG4gICAgICovXHJcbiAgICBwcml2YXRlIGNsb25lO1xyXG59XHJcbiJdfQ==

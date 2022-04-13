@@ -1,0 +1,139 @@
+<div class="spinner-wrapper" *ngIf="isShowLoader">
+    <mat-progress-spinner [color]="'primary'" [mode]="'indeterminate'" [diameter]="'50'" [strokeWidth]="'3'"
+        [value]="'100'">
+    </mat-progress-spinner>
+</div>
+
+<div class="view-stop-wrapper">
+    <h1 class="heading">{{routeName}} : Stop Detail</h1>
+    <button class="filter-btn export" *ngIf="selectedTabIndex === 0" (click)="downloadCityStops()">
+        <span class="add-route" >
+            Export
+        </span>
+    </button>
+    <button class="filter-btn" *ngIf="selectedTabIndex === 0" (click)="editStop()">
+        <!-- <mat-icon class="icon">add</mat-icon> -->
+        <span class="add-route" >
+            Edit
+        </span>
+    </button>
+    <mat-icon class="icon" (click)="clear()">clear</mat-icon>
+    <mat-tab-group animationDuration="0ms" [(selectedIndex)]="selectedTabIndex" (selectedIndexChange)="tabChange()"
+        mat-stretch-tabs class="max-stretch">
+        <mat-tab label="PreProd">
+            <div class="table-wrapper">
+                <div class="table-grid">
+                    <div class="table-row table-head">
+                        <div class="flex-5">Stop seq</div>
+                        <div class="flex-5">Stop Id</div>
+                        <div>Stop Name</div>
+                        <div class="flex-5">Lat</div>
+                        <div class="flex-5">Long</div>
+                        <div class="flex-7">IsStage</div>
+                        <!-- <div class="flex-2"></div> -->
+                    </div>
+                    <div class="table-body" *ngIf='stopList.length'>
+                        <div class="table-row" *ngFor="let stop of stopList; let i = index">
+                            <div class="flex-5">
+                                {{i+1}}
+                            </div>
+                            <div class="flex-5">{{stop.stop_id || 'N/A'}}</div>
+                            <div class="tooltip ">
+                                <span *ngIf="!isEdit || (isEdit && editableStopId !== stop.stop_id)"
+                                    class="stop-name overflow-hidden width-150">
+                                    {{stop.stop_name || 'N/A'}}
+                                </span>
+                                <input type="text" [value]="stop.stop_name"
+                                    *ngIf="isEdit && editableStopId === stop.stop_id" class="edit-stop-name"
+                                    (change)="stopNameChange($event.target.value,stop.stop_id)" />
+                                <div class="tooltiptext">
+                                    <span>
+                                        {{stop.stop_name}}</span><br>
+                                </div>
+                            </div>
+                            <div class="tooltip flex-5">
+                                <span class="stop-name overflow-hidden">
+                                    {{stop.stop_lat | number:'1.2-2'|| 'N/A'}}
+                                </span>
+                                <div class="tooltiptext">
+                                    <span>
+                                        {{stop.stop_lat}}
+                                    </span><br>
+                                </div>
+                            </div>
+                            <div class="tooltip flex-5">
+                                <span class="stop-name overflow-hidden">
+                                    {{(stop.stop_lon| number:'1.2-2') || 'N/A'}}
+                                </span>
+                                <div class="tooltiptext">
+                                    <span>
+                                        {{stop.stop_lon}}
+                                    </span>
+                                    <br>
+                                </div>
+                            </div>
+                            <div class="flex-7">
+                                {{stop.isStage || 'N/A'}}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </mat-tab>
+        <mat-tab label="Prod">
+            <div class="table-wrapper">
+                <div class="table-grid">
+                    <div class="table-row table-head">
+                        <div class="flex-5">Stop seq</div>
+                        <div class="flex-5">Stop Id</div>
+                        <div>Stop Name</div>
+                        <div class="flex-5">Lat</div>
+                        <div class="flex-5">Long</div>
+                        <div class="flex-7">IsStage</div>
+                    </div>
+                    <div class="table-body" *ngIf='stopList.length'>
+                        <div class="table-row" *ngFor="let stop of stopList; let i = index">
+                            <div class="flex-5">
+                                {{i+1}}
+                            </div>
+                            <div class="flex-5">{{stop.stop_id || 'N/A'}}</div>
+                            <div class="tooltip">
+                                <span class="stop-name overflow-hidden width-150">
+                                    {{stop.stop_name || 'N/A'}}
+                                </span>
+                                <div class="tooltiptext">
+                                    <span>
+                                        {{stop.stop_name}}</span><br>
+                                </div>
+                            </div>
+                            <div class="tooltip flex-5">
+                                <span class="stop-name overflow-hidden">
+                                    {{(stop.stop_lat | number:'1.2-2') || 'N/A'}}
+                                </span>
+                                <div class="tooltiptext">
+                                    <span>
+                                        {{stop.stop_lat}}
+                                    </span><br>
+                                </div>
+                            </div>
+                            <div class="tooltip flex-5">
+                                <span class="stop-name overflow-hidden">
+                                    {{(stop.stop_lon | number:'1.2-2')|| 'N/A'}}
+                                </span>
+                                <div class="tooltiptext">
+                                    <span>
+                                        {{stop.stop_lon}}
+                                    </span>
+                                    <br>
+                                </div>
+                            </div>
+                            <div class="flex-7">
+                                {{stop.isStage || 'N/A'}}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </mat-tab>
+    </mat-tab-group>
+</div>

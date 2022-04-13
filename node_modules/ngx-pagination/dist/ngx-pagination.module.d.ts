@@ -1,0 +1,16 @@
+import * as ɵngcc0 from '@angular/core';
+import * as ɵngcc1 from './paginate.pipe';
+import * as ɵngcc2 from './pagination-controls.component';
+import * as ɵngcc3 from './pagination-controls.directive';
+import * as ɵngcc4 from '@angular/common';
+export { PaginationInstance } from './pagination-instance';
+export { PaginationService } from './pagination.service';
+export { PaginationControlsComponent } from './pagination-controls.component';
+export { PaginationControlsDirective } from './pagination-controls.directive';
+export { PaginatePipe } from './paginate.pipe';
+export declare class NgxPaginationModule {
+    static ɵmod: ɵngcc0.ɵɵNgModuleDefWithMeta<NgxPaginationModule, [typeof ɵngcc1.PaginatePipe, typeof ɵngcc2.PaginationControlsComponent, typeof ɵngcc3.PaginationControlsDirective], [typeof ɵngcc4.CommonModule], [typeof ɵngcc1.PaginatePipe, typeof ɵngcc2.PaginationControlsComponent, typeof ɵngcc3.PaginationControlsDirective]>;
+    static ɵinj: ɵngcc0.ɵɵInjectorDef<NgxPaginationModule>;
+}
+
+//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoibmd4LXBhZ2luYXRpb24ubW9kdWxlLmQudHMiLCJzb3VyY2VzIjpbIm5neC1wYWdpbmF0aW9uLm1vZHVsZS5kLnRzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiI7Ozs7O0FBQUE7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBOzs7QUFDQSIsInNvdXJjZXNDb250ZW50IjpbImV4cG9ydCB7IFBhZ2luYXRpb25JbnN0YW5jZSB9IGZyb20gJy4vcGFnaW5hdGlvbi1pbnN0YW5jZSc7XHJcbmV4cG9ydCB7IFBhZ2luYXRpb25TZXJ2aWNlIH0gZnJvbSAnLi9wYWdpbmF0aW9uLnNlcnZpY2UnO1xyXG5leHBvcnQgeyBQYWdpbmF0aW9uQ29udHJvbHNDb21wb25lbnQgfSBmcm9tICcuL3BhZ2luYXRpb24tY29udHJvbHMuY29tcG9uZW50JztcclxuZXhwb3J0IHsgUGFnaW5hdGlvbkNvbnRyb2xzRGlyZWN0aXZlIH0gZnJvbSAnLi9wYWdpbmF0aW9uLWNvbnRyb2xzLmRpcmVjdGl2ZSc7XHJcbmV4cG9ydCB7IFBhZ2luYXRlUGlwZSB9IGZyb20gJy4vcGFnaW5hdGUucGlwZSc7XHJcbmV4cG9ydCBkZWNsYXJlIGNsYXNzIE5neFBhZ2luYXRpb25Nb2R1bGUge1xyXG59XHJcbiJdfQ==

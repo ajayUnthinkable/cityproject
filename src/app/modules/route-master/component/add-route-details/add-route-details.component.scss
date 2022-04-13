@@ -1,0 +1,145 @@
+.add-route-wrapper {
+  width: 466px;
+}
+
+.form-control {
+  width: 100%;
+}
+
+.mat-radio-button ~ .mat-radio-button {
+  margin-left: 16px;
+}
+
+.radio-button {
+  margin: 10px 0px 21px 0px;
+}
+
+.padding-bottom {
+  padding-bottom: 12px;
+}
+.route-form {
+  // padding-top: 20px;
+}
+
+.margin {
+  margin-right: 12px;
+}
+
+.csv-wrapper {
+  min-width: 452px;
+}
+
+.mediaCapture {
+  display: none;
+}
+
+.wrapper {
+  margin-top: 38px;
+  border: 1px solid #ccc;
+  padding: 10px;
+  font-size: 14px;
+}
+
+.remove-button {
+  border: 0px;
+  background: none;
+  position: absolute;
+  right: 0px;
+  padding: 0px;
+  color: #f57c00;
+}
+
+.file-input {
+  width: 85%;
+}
+
+.filter-btn {
+  font-size: 14px;
+  padding: 12px 15px;
+  background: #f28100;
+  border: none;
+  color: #fff;
+  outline: none;
+  margin-left: 15px;
+  cursor: pointer;
+  font-weight: bold;
+  position: relative;
+  width: 150px;
+
+  .fa {
+    margin-right: 5px;
+  }
+}
+
+.cancel-btn {
+  background: #eee;
+  color: black;
+}
+
+.btn-wrapper {
+  display: flex;
+  justify-content: flex-end;
+}
+
+ul {
+  list-style-type: none;
+  margin-top: 4px;
+  padding-left: 0px;
+}
+
+.file-input-wrapper {
+  position: relative;
+}
+
+.heading {
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.size-16 {
+  font-size: 16px;
+}
+
+.overflow-scroll {
+    max-height: 48px;
+    overflow-y: auto;
+}
+
+.select-all-btn {
+  text-align: left;
+  padding-right: 30px;
+  padding-left: 18px;
+  font-size: 18px;
+  border: none;
+  background: none;
+  box-shadow: none;
+  outline: none;
+  text-decoration: underline;
+  color: #f28100;
+  cursor: pointer;
+  margin-bottom: 12px;
+  margin-top: 12px;
+  text-align: right;
+}
+
+// .tags {
+//   .radio-button {
+//     mat-form-field {
+//         mat-select {
+//           display: inline-block;
+//           width: 100%;
+//           outline: none;
+//           padding: 5px;
+//       }
+//     }
+//   }
+// }
+
+.pd-5 {
+  padding: 5px;
+  padding-top: 0px;
+}
+
+.mt-4 {
+  margin-top: 4px;
+}

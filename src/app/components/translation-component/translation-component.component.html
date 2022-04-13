@@ -1,0 +1,36 @@
+<div>
+    <form [formGroup]="stopTranslationForm">
+        <div formArrayName="cards">
+            <div>
+                <div *ngFor="let card of cardFormGroup.controls; let i = index;">
+                    <div class="item-container"  [formGroupName]="i" class="stop-name-1 stop-name-input">
+                             <div style="display: flex;">
+                                
+                               <div class="card-index">{{i+1}}.</div> 
+                               <div class="translation-card">
+                                    <mat-form-field floatLabel='never' style="width: 165px;">
+                                            <mat-select formControlName="languageId" (focus)="myMethod(i)" (selectionChange)="languageChange(i)" placeholder="Select Language">
+                                                <mat-option [disabled] = "languageId.isDisabled" *ngFor="let languageId of languageList" value="{{languageId.name}}">{{getTranslatedLang(languageId.name)}}</mat-option>
+                                            </mat-select>
+                                        </mat-form-field>
+                                </div>
+                             </div>
+                             <div>
+                                 <mat-form-field floatLabel='never' style="width: 165px;">
+                                    <input (input)="updateData()" matInput type="text" formControlName="translatedText" placeholder="Enter Translation"/>
+                                 </mat-form-field>
+                             </div>
+                             <!-- <div class="del-icon" *ngIf="cardFormGroup.controls.length > 1" >
+                                <span (click)="removeCard(i)" class="action-btn"><i  class="fa fa-trash" aria-hidden="true"></i></span>
+                            </div>  -->
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div>
+            <div *ngIf="!(languageList.length == cardList.length)"  class="add-btn" (click)="addNewCard()"> 
+                    Add More
+            </div>
+        </div>
+    </form>
+</div>

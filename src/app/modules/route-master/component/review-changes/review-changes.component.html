@@ -1,0 +1,97 @@
+<div class="dialoge-wrapper">
+    <div class="dialoge-content">
+        <h2 class="heading">
+            Confirm Details
+        </h2>
+        <div class="info-container">
+            <div (click)="infoClicked('routeInfo')" class="info route-info">
+                <div class="display-flex">
+                    <span>Route Info</span>
+                    <mat-icon class="pointer"  [ngClass]="isClicked['routeInfo'] ? 'rotate-180' :'rotate-0'">keyboard_arrow_down</mat-icon>
+                </div>
+                <div class="details" *ngIf="isClicked['routeInfo']">
+                    <div class="display-flex detailed-info">
+                        <span> Route Number</span>
+                        <span>{{details.name}}</span>
+                    </div>
+
+                    <div class="display-flex detailed-info">
+                        <span> Direction</span>
+                        <span>{{details.di}}</span>
+                    </div>
+
+                    <div class="display-flex detailed-info" *ngIf="currentRoute!=='reviewRoutes'">
+                        <span> Unactive</span>
+                        <span>{{details.unActive}}</span>
+                    </div>
+
+                    <div class="display-flex detailed-info">
+                        <span> Applications</span>
+                        <span *ngIf="details.o.length">
+                            <span *ngFor="let application of details.o; let index = index">{{application|uppercase}}
+                                <span *ngIf="index < details.o.length-1">, </span>
+                            </span>
+                        </span>
+                    </div>
+
+                    <div class="display-flex detailed-info">
+                        <span> Reverse Id</span>
+                        <span>{{details.rr}}</span>
+                    </div>
+
+                    <div class="display-flex detailed-info">
+                        <span> Service Tag</span>
+                        <span *ngIf='details && (details.spf || details.sf)'>
+                            <span *ngIf="details.spf">
+                                <span *ngFor="let sTag of details.spf; let index = index">
+                                    <span>{{sTag}}
+                                        <span *ngIf="index < details.spf.length-1">, </span>
+                                    </span>
+                                </span>
+                            </span>
+                            <span *ngIf="details.sf">
+                                <span *ngFor="let sTag of details.sf; let index = index">
+                                    <span>{{sTag}}
+                                        <span *ngIf="index < details.sf.length-1">, </span>
+                                    </span>
+                                </span>
+                            </span>
+                        </span>
+                    </div>
+                </div>
+            </div>
+
+            <div (click)="infoClicked('stops')" class="info">
+                <div class="display-flex">
+                    <span>Stops</span>
+                    <mat-icon class="pointer" [ngClass]="isClicked['stops'] ? 'rotate-180' :'rotate-0'">keyboard_arrow_down</mat-icon>
+                </div>
+                <div class="details stop-details" *ngIf="isClicked['stops']">
+                   <div *ngFor="let stop of details.stopList" class="display-flex stops">
+                        <span>{{stop.stopName}}</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="info display-flex">
+                <span>Fare</span>
+                <span *ngIf="isFareFileUploaded" class="upload">Uploaded</span>
+                <span *ngIf="!isFareFileUploaded" class="upload">Not Uploaded</span>
+            </div>
+            <div class="info display-flex">
+                <span>Timetables</span>
+                <span *ngIf="isTimeTableUploaded" class="upload">Uploaded</span>
+                <span *ngIf="!isTimeTableUploaded" class="upload">Not Uploaded</span>
+            </div>
+            <div class="info display-flex">
+                <span>Distance</span>
+                <span *ngIf="isDistanceUploaded" class="upload">Uploaded</span>
+                <span *ngIf="!isDistanceUploaded" class="upload">Not Uploaded</span>
+            </div>
+        </div>
+    </div>
+    <div class="action-btn">
+        <button mat-button (click)="cancel()" class="filter-btn cancel">Cancel</button>
+        <button mat-button (click)="success()" class="filter-btn">Submit</button>
+    </div>
+</div>

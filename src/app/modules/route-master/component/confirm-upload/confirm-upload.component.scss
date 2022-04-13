@@ -1,0 +1,51 @@
+.mar-bot-34 {
+  margin-bottom: 34px;
+}
+
+.mar-top-40 {
+  margin-top: 40px;
+}
+
+.csv-wrapper {
+  min-width: 600px;
+}
+
+.wrapper {
+  margin-top: 38px;
+  border: 1px solid #ccc;
+  padding: 10px;
+  font-size: 14px;
+}
+
+.btn-wrapper {
+  margin-top: 50px;
+  float: right;
+
+  button {
+    margin-left: 16px;
+  }
+}
+
+.heading {
+    font-size: 25px;
+    font-weight: 500;
+}
+
+.btn {
+    font-size: 15px;
+    font-weight: bold;
+}
+
+.cancel-btn {
+    background: white;
+    border: 01px solid #fe7c00;
+    color: #fe7c00;
+}
+
+.text {
+    font-size: 18px;
+}
+
+.mat-radio-button ~ .mat-radio-button {
+  margin-left: 16px;
+}

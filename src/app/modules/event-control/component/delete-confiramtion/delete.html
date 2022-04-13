@@ -1,0 +1,9 @@
+<h1 class="title">Delete {{data.type}}</h1>
+<div mat-dialog-content >
+    <!-- <p >Are you sure you want to delete {{ data.eventData.data.eventDetails.name }}?</p> -->
+    <p >Are you sure you want to delete {{ message }}?</p>
+</div>
+<div class="btn-wrapper">
+    <button class="app-btn" [disabled]="isSaveDisable" (click)="onNoClick()">{{isSaveDisable ? 'Please wait' : 'CANCEL'}}</button>
+    <button class="app-btn" [disabled]="isSaveDisable" (click)="delete()">{{isSaveDisable ? 'Please wait' : 'DELETE'}}</button>
+</div>

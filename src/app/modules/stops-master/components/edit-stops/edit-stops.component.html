@@ -1,0 +1,135 @@
+<div class="spinner-wrapper" *ngIf="isShowLoader">
+    <mat-progress-spinner [color]="'primary'" [mode]="'indeterminate'" [diameter]="'50'" [strokeWidth]="'3'"
+        [value]="'100'">
+    </mat-progress-spinner>
+</div>
+
+<div>
+    <div class="header">
+        <div class="display-flex">
+            <div class="icon-div" (click)="goBack()">
+                <img src='../../../../../assets/images/back-arrow.png' />
+            </div>
+            <span class="stop-name">{{stopDetails.stopName}}</span>
+        </div>
+        <div>
+            <button class="filter-btn" (click)="submitStop()">Submit</button>
+        </div>
+    </div>
+    <div class="display-flex">
+        <div class="details-container">
+            <!-- <form [formGroup]="editStopForm"> -->
+            <div class="heading">
+                Stop details
+            </div>
+            <div class="details">
+                <p>Stop Name
+                    <img class='icon' src="../../../../../assets/images/pencil-alt-solid.png" (click)="edit('stopName')"
+                        *ngIf="!isEdit['stopName']" />
+                </p>
+                <p class="info" *ngIf="!isEdit['stopName']">{{stopDetails.stopName}}</p>
+                <div *ngIf="isEdit['stopName']">
+                    <span class="stop-name-input">
+                        <mat-form-field class='input'>
+                            <input matInput #stopName [value]="stopDetails['stopName'] || ''" />
+                        </mat-form-field>
+                    </span>
+                    <div class="action">
+                        <mat-icon class="action-icon cancel" (click)="cancelEditing('stopName')">close</mat-icon>
+                        <mat-icon class="action-icon" (click)="editDetails(stopName.value,'stopName')">
+                            check</mat-icon>
+                    </div>
+                </div>
+            </div>
+            <div class="details">
+                <p>Stop ID</p>
+                <p class="info">{{stopDetails.id}}</p>
+            </div>
+            <div class="details">
+                <p>Stop Code
+                    <img class='icon' src="../../../../../assets/images/pencil-alt-solid.png" *ngIf="!isEdit['code']"
+                        (click)="edit('code')" />
+                </p>
+                <p class="info" *ngIf="!isEdit['code']">{{stopDetails.code}}</p>
+                <div *ngIf="isEdit['code']">
+                    <span class="stop-name-input">
+                        <mat-form-field class='input'>
+                            <input matInput #code [value]="stopDetails['code'] || ''"/>
+                        </mat-form-field>
+                    </span>
+                    <div class="action">
+                        <mat-icon class="action-icon cancel" (click)="cancelEditing('code')">close</mat-icon>
+                        <mat-icon class="action-icon" (click)="editDetails(code.value,'code')">check</mat-icon>
+                    </div>
+                </div>
+            </div>
+            <div class="details">
+                <p>Lat</p>
+                <p class="info">{{stopDetails.lat}}</p>
+            </div>
+            <div class="details">
+                <p>Long</p>
+                <p class="info">{{stopDetails.long}}</p>
+            </div>
+            <div class="details">
+                <p>Name Alias
+                    <img class='icon' src="../../../../../assets/images/pencil-alt-solid.png" *ngIf="!isEdit['alias']"
+                        (click)="edit('alias')" />
+                </p>
+                <p class="info" *ngIf="!isEdit['alias']">{{stopDetails.alias}}</p>
+                <div *ngIf="isEdit['alias']">
+                    <span class="stop-name-input">
+                        <mat-form-field class='input'>
+                            <input matInput #alias [value]="stopDetails['alias'] || ''" />
+                        </mat-form-field>
+                    </span>
+                    <div class="action">
+                        <mat-icon class="action-icon cancel" (click)="cancelEditing('alias')">close</mat-icon>
+                        <mat-icon class="action-icon" (click)="editDetails(alias.value,'alias')">
+                            check</mat-icon>
+                    </div>
+                </div>
+            </div>
+            <div class="details">
+                <p class="info-lang">Translations
+                    <img class='icon' src="../../../../../assets/images/pencil-alt-solid.png" (click)="edit('ls')"
+                        *ngIf="!isEdit['ls']" />
+                </p>
+                <div class="mt-10" *ngIf="!isEdit['ls'] && languagesList && languagesList.length">
+                    <div  class="lang-list-view" *ngFor="let key of languagesList;">
+                        <p class="info-lang" *ngIf="!isEdit['ls'] && isAvailableTranslation(key,stopDetails)">{{getKeyForTranslation(stopDetails,key)}}: {{getDesiredLanguage(key,stopDetails)}}</p>
+                    </div>
+                </div>
+                    <p class="info" *ngIf="!isEdit['ls']"></p>
+                <div *ngIf="isEdit['ls'] && languagesList && languagesList.length">
+                    <span class="stop-name-input">
+                        <div>
+                            <app-translation-component 
+                            [translatedList]="prefilledTranslatedList" 
+                            ></app-translation-component>
+                        </div>
+                    </span>
+                    <div class="action">
+                        <mat-icon class="action-icon cancel" (click)="cancelEditing('ls')">close</mat-icon>
+                        <mat-icon class="action-icon" (click)="editDetails('','ls')">
+                            check</mat-icon>
+                    </div>
+                </div>
+            </div>
+            <!-- </form> -->
+            <div class="heading">
+                Connecting Routes
+            </div>
+            <div class="details">
+                <p><span class="route-name">234</span> NON AC</p>
+                <p class="info">ABC-DEF</p>
+            </div>
+            <div class="details">
+                <p><span class="route-name">234</span> NON AC</p>
+                <p class="info">ABC-DEF</p>
+            </div>
+
+        </div>
+        <div #map class="map-wrapper"></div>
+    </div>
+</div>

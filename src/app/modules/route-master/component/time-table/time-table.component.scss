@@ -1,0 +1,40 @@
+@import "../../../../../theme/variables.scss";
+
+.view-timetable-wrapper {
+  position: relative;
+  width: 400px;
+}
+
+.heading {
+  color: $primary;
+  font-weight: bold;
+  display: inline-block;
+}
+
+.download-btn {
+  display: flex;
+  justify-content: center;
+  padding: 15px;
+}
+
+.filter-btn {
+  font-size: 14px;
+  padding: 12px 15px;
+  background: #f28100;
+  border: none;
+  color: #fff;
+  outline: none;
+  margin-left: 15px;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.icon {
+    position: absolute;
+    right: 0;
+    cursor: pointer;
+}
+
+.time-table{ 
+    min-height:50vh;
+}

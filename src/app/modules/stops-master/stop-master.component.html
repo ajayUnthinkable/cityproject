@@ -1,0 +1,73 @@
+<div class="spinner-wrapper" *ngIf="isShowLoader">
+    <mat-progress-spinner [color]="'primary'" [mode]="'indeterminate'" [diameter]="'50'" [strokeWidth]="'3'"
+        [value]="'100'">
+    </mat-progress-spinner>
+</div>
+
+<div class="header-wrapper">
+    <div class="search-input">
+        <form [formGroup]="stopMasterForm">
+            <div>
+                <span>
+                    <mat-icon class="search-icon" *ngIf="!stopMasterForm.get('searchText').value.length">search</mat-icon>
+                    <mat-icon class="search-icon" (click)="close()" *ngIf="stopMasterForm.get('searchText').value.length">close</mat-icon>                  
+                </span>
+                <input type="text" placeholder="Search Stop" (keyup)="searchStop($event.target.value)"
+                    formControlName='searchText' />
+            </div>
+        </form>
+    </div>
+</div>
+<div class="wrapper">
+    <div class="stop-list-container">
+        <div class="stop-list" *ngFor="let stop of stopList | paginate: { itemsPerPage: 10, currentPage: pageNo }; let index = index"
+             [ngClass]="selectedStop ===stop['seqNo'] && 'selected-stop'">
+            <div class="stops" (click)="selectStop(index,stop.id,stop['seqNo'])" [ngClass]="selectedStop === stop['seqNo'] && 'pd-10'">
+                <span class="stop-name"> {{stop.stopName}}
+                    
+                    <!-- <span *ngIf="selectedStop === stop['seqNo'] && isRouteData" style="display:inline-block;">
+                        <div  >
+                            <mat-progress-spinner [color]="'primary'" [mode]="'indeterminate'" [diameter]="'20'" [strokeWidth]="'2'"
+                                [value]="'100'">
+                            </mat-progress-spinner>
+                        </div>
+                    </span> -->
+                    <br *ngIf="stop['ls']">
+                    <span class="translated-name" *ngIf="stop['ls']">{{ getStopTranslatedName(stop)}}</span>
+                </span>
+                <span class="stop-code">
+                    {{stop.id}}
+                </span>
+                <span *ngIf="selectedStop === stop['seqNo'] && isRouteData" class="route-spinner">
+                    <div>
+                        <mat-progress-spinner [color]="'primary'" [mode]="'indeterminate'" [diameter]="'20'" [strokeWidth]="'2'"
+                            [value]="'100'">
+                        </mat-progress-spinner>
+                    </div>
+                </span>
+              
+            </div>
+            <div class="edit" *ngIf="(selectedStop===stop['seqNo']) && (userRole !=='data executive')">
+                <button class="edit-button" (click)="editStop(index,'true')">
+                    <img src="../../../assets/images/pencil-alt-solid.png" class="icon"/>
+                    <span class="edit-text">Edit</span>
+                </button>
+            </div>
+            <div *ngIf="selectedStop === stop['seqNo'] && routeData && routeData.length" [ngClass] = "stop['seqNo'] == selectedStop ? 'margin-24':''">
+                <div *ngFor="let route of routeData" class="nearby-stop">
+                    <span>
+                        {{route.routeName}}
+                    </span>
+                </div>
+            </div>
+            <div *ngIf="selectedStop === stop['seqNo'] && !routeData" class="nearby-stop">
+                No Route Found
+            </div>
+        </div>
+    </div>
+    
+    <div #map class="map-wrapper"></div>
+</div>
+<div>
+    <pagination-controls *ngIf="stopList && stopList.length >10" (pageChange)="pageChanged($event)"></pagination-controls>
+</div>

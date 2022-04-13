@@ -1,0 +1,140 @@
+<div class="spinner-wrapper" *ngIf="isShowLoader">
+    <mat-progress-spinner [color]="'primary'" [mode]="'indeterminate'" [diameter]="'50'" [strokeWidth]="'3'"
+        [value]="'100'">
+    </mat-progress-spinner>
+</div>
+<div class="view-route-wrapper">
+    <h1 class="heading" *ngIf="routeDetail">Route {{routeDetail.route_name}}</h1>
+    <mat-icon class="icon" (click)="clear()">clear</mat-icon>
+    <mat-tab-group animationDuration="0ms" [(selectedIndex)]="selectedTabIndex" (selectedIndexChange)="tabChange()"
+        mat-stretch-tabs class="max-stretch">
+        <mat-tab label="PreProd">
+            <div class="form-wrapper" *ngIf="routeDetail">
+                <div class="form">
+                    <div class="item">
+                        <p class="item-heading">Route Name:</p>
+                        <p class="item-value">{{routeDetail.route_name}}</p>
+                    </div>
+                    <div class="item">
+                        <p class="item-heading">Route Id:</p>
+                        <p class="item-value">{{routeDetail.route_id}}</p>
+                    </div>
+                    <div class="item">
+                        <p class="item-heading">Agency:</p>
+                        <p class="item-value">{{routeDetail.agency_name|uppercase}}</p>
+                    </div>
+                    <div class="item">
+                        <p class="item-heading">Service Tags:</p>
+                        <p class="item-value" *ngIf="!isEdit && routeDetail.serviceTag">
+                            <span *ngFor="let tag  of routeDetail.serviceTag; let i=index">{{tag|customuppercase}}
+                                <span *ngIf="i<routeDetail.serviceTag.length-1">, </span>
+                            </span>
+                        </p>
+                        <p class="item-value" *ngIf="!isEdit && !routeDetail.serviceTag">
+                            N/A
+                        </p>
+                    </div>
+                    <div class="item">
+                        <p class="item-heading">Directions:</p>
+                        <p class="item-value" *ngIf="!isEdit">{{(routeDetail.direction|uppercase) || 'N/A'}} </p>
+                    </div>
+                    <div class="item">
+                        <p class="item-heading">Start Stop:</p>
+                        <p class="item-value">{{routeDetail.first_stop_name|| 'N/A'}}</p>
+                    </div>
+                    <div class="item">
+                        <p class="item-heading">End Stop:</p>
+                        <p class="item-value">{{routeDetail.last_stop_name|| 'N/A'}}</p>
+                    </div>
+                    <div class="item">
+                        <p class="item-heading">Total Stops:</p>
+                        <p class="item-value">{{routeDetail.total_stops || 'N/A'}}</p>
+                    </div>
+                    <div class="item">
+                        <p class="item-heading">Total Stages:</p>
+                        <p class="item-value">{{routeDetail.total_stages || 'N/A'}}</p>
+                    </div>
+                    <div class="item">
+                        <p class="item-heading">Applications:</p>
+                        <p class="item-value" *ngIf="!isEdit && routeDetail.o && routeDetail.o.length">
+                            <span *ngFor="let application of routeDetail.o; let i=index">
+                                {{application|uppercase}}
+                                <span *ngIf="i<routeDetail.o.length-1">, </span>
+                            </span>
+                        </p>
+                        <p class="item-value" *ngIf="!isEdit &&(routeDetail.o && !routeDetail.o.length)">
+                            -
+                        </p>
+                    </div>
+                </div>
+                <div class="edit">
+                    <button class="edit-btn" type="button" (click)="download()">Download</button>
+                </div>
+            </div>
+        </mat-tab>
+        <mat-tab label="Prod" [disabled]="isEdit">
+            <div class="form-wrapper" *ngIf="routeDetail">
+                <div class="form">
+                    <div class="item">
+                        <p class="item-heading">Route Name:</p>
+                        <p class="item-value" *ngIf="!isEdit">{{routeDetail.route_name}}</p>
+                    </div>
+                    <div class="item">
+                        <p class="item-heading">Route Id:</p>
+                        <p class="item-value">{{routeDetail.route_id}}</p>
+                    </div>
+                    <div class="item">
+                        <p class="item-heading">Agency:</p>
+                        <p class="item-value">{{routeDetail.agency_name|uppercase}}</p>
+                    </div>
+                    <div class="item">
+                        <p class="item-heading">Service Tags:</p>
+                        <p class="item-value" *ngIf="!isEdit && routeDetail.serviceTag">
+                            <span *ngFor="let tag  of routeDetail.serviceTag; let i=index">{{tag|customuppercase}}
+                                <span *ngIf="i<routeDetail.serviceTag.length-1">, </span>
+                            </span>
+                        </p>
+                        <p class="item-value" *ngIf="!isEdit && !routeDetail.serviceTag">
+                            N/A
+                        </p>
+                    </div>
+                    <div class="item">
+                        <p class="item-heading">Directions:</p>
+                        <p class="item-value">{{(routeDetail.direction|uppercase) || 'N/A'}} </p>
+                    </div>
+                    <div class="item">
+                        <p class="item-heading">Start Stop:</p>
+                        <p class="item-value">{{routeDetail.first_stop_name||'N/A'}}</p>
+                    </div>
+                    <div class="item">
+                        <p class="item-heading">End Stop:</p>
+                        <p class="item-value">{{routeDetail.last_stop_name||'N/A'}}</p>
+                    </div>
+                    <div class="item">
+                        <p class="item-heading">Total Stops:</p>
+                        <p class="item-value">{{routeDetail.total_stops}}</p>
+                    </div>
+                    <div class="item">
+                        <p class="item-heading">Total Stages:</p>
+                        <p class="item-value">{{routeDetail.total_stages || 'N/A'}}</p>
+                    </div>
+                    <div class="item">
+                        <p class="item-heading">Applications:</p>
+                        <p class="item-value" *ngIf="!isEdit && routeDetail.o && routeDetail.o[0]">
+                            <span *ngFor="let application of routeDetail.o; let i=index">
+                                {{application|uppercase}}
+                                <span *ngIf="i<routeDetail.o.length-1">, </span>
+                            </span>
+                        </p>
+                        <p class="item-value" *ngIf="!isEdit &&!routeDetail.o[0]">
+                            -
+                        </p>
+                    </div>
+                </div>
+                <div class="edit">
+                    <button class="edit-btn" type="button" (click)="download()">Download</button>
+                </div>
+            </div>
+        </mat-tab>
+    </mat-tab-group>
+</div>

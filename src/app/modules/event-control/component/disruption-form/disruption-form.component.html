@@ -1,0 +1,350 @@
+<form [formGroup]="eventForm">
+    <div>
+        <div class="inner-padding">
+            <div class="item-wrapper">
+                <div class="item-title">Name</div>
+                <div><input class="name-input" type="text" formControlName="name"></div>
+            </div>
+            <div class="item-wrapper">
+                <div class="item-title">Routes Affected</div>
+                <div>
+                    <mat-form-field>
+                        <mat-select multiple formControlName="routeIds">
+                            <button class="select-all-btn" (click)="toggleAllSelection()">Select all</button>
+                            <button class="select-all-btn right-float" (click)="deselectAllSelection()">Deselect all</button>
+                            <mat-option *ngFor="let route of routes;" [value]="route.route_id">{{route.route_name + ' ( ' +
+                                route.first_stop_name + ' - ' + route.last_stop_name + ' )'}}
+                            </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+                <div><input class="mediaCapture" id="file-upload1" type="file" accept="text/csv" (change)="fileSelected($event)">
+                    <div class="wrapper1" id="input-text1" (click)="selectFile()">Upload CSV</div></div>
+                    <div class="file-name">{{this.fileName}}</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="section-wrapper">
+        <div>
+            <div>Live Tracking Handling</div>
+            <div class="track-main-wrapper">
+                <div class="tracking-wrapper">
+                    <div class="tracking-item">
+                        Is ETA inaccuracy expected?
+                    </div>
+                    <div>
+                        <mat-radio-group formControlName="r" color="primary">
+                            <mat-radio-button color="primary" value="true" class="radio-inline">Yes
+                            </mat-radio-button>
+                            <mat-radio-button color="primary" value="false" class="radio-inline">No
+                            </mat-radio-button>
+                        </mat-radio-group>
+                    </div>
+                </div>
+                <div class="tracking-wrapper">
+                    <div class="tracking-item">
+                        Disable checkout on deviation?
+                    </div>
+                    <div>
+                        <mat-radio-group formControlName="rD" color="primary">
+                            <mat-radio-button color="primary" value="true" class="radio-inline">Yes
+                            </mat-radio-button>
+                            <mat-radio-button color="primary" value="false" class="radio-inline">No
+                            </mat-radio-button>
+                        </mat-radio-group>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="section-wrapper">
+        <div>
+            <div class="toggle-title">
+                <div>Route Screen Message</div>
+                <mat-slide-toggle formControlName="isRouteScreen" color="primary">
+                </mat-slide-toggle>
+            </div>
+            <div *ngIf="eventForm.get('isRouteScreen').value">
+                <div>
+                    <div class="checkbox-style">
+                        <mat-checkbox formControlName="routeBannerVisiblity" color="primary">
+                            Banner Details
+                        </mat-checkbox>
+                    </div>
+                    <div class="banner-item-wrapper" *ngIf="eventForm.get('routeBannerVisiblity').value">
+                        <div class="item-wrapper">
+                            <div class="item-title">Text</div>
+                            <div><input formControlName="routeBannerTitle" class="name-input light-bg" type="text">
+                            </div>
+                        </div>
+                        <div class="item-wrapper">
+                            <div class="item-title">Banner Style</div>
+                            <div>
+                                <mat-form-field>
+                                    <mat-select formControlName="routeBannerStyle">
+                                        <mat-option [value]="0">Black</mat-option>
+                                        <mat-option [value]="1">Grey</mat-option>
+                                    </mat-select>
+                                </mat-form-field>
+                            </div>
+                        </div>
+                        <div class="item-wrapper icon-wrapper">
+                            <div class="item-title">Banner Icon</div>
+                            <div class="img-wrapper">
+                                <div *ngFor="let bgImage of bgImagesForRoute"
+                                    [ngClass]="eventForm.get('routeBannerIcon').value == bgImage ? 'border' : ''"
+                                    (click)="setImageUrl(bgImage, 'routeBannerIcon')" class="background-image-style"
+                                    [style.background-image]="getImage(bgImage)">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="mar-top-16">
+                            <div>Button (Optional)</div>
+                            <div class="cta-wrapper">
+                                <div class="item-wrapper">
+                                    <div class="item-title">Button Label</div>
+                                    <div><input formControlName="routeBannerCTALabel" class="name-input light-bg"
+                                            type="text"></div>
+                                </div>
+                                <div class="item-wrapper">
+                                    <div class="item-title">Button Action</div>
+                                    <div>
+                                        <mat-form-field>
+                                            <mat-select formControlName="routeBannerCTAAction">
+                                                <mat-option [value]="'Dialog'">Dialog</mat-option>
+                                                <mat-option [value]="'Open Link'">Open Link</mat-option>
+                                            </mat-select>
+                                        </mat-form-field>
+                                    </div>
+                                </div>
+                                <div class="item-wrapper"
+                                    *ngIf="eventForm.get('routeBannerCTAAction').value == 'Open Link'">
+                                    <div class="item-title">Button Link</div>
+                                    <div><input formControlName="routeBannerCTALink" class="name-input light-bg"
+                                            type="url"></div>
+                                    <div class='form-error' *ngIf='eventForm.controls.routeBannerCTALink.touched'>
+                                        <div *ngIf="eventForm.controls.routeBannerCTALink.hasError('pattern')">
+                                            Link not valid.</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div *ngIf="eventForm.get('routeBannerCTAAction').value == 'Dialog'">
+                    <div class="checkbox-style">
+                        <mat-checkbox formControlName="routeDialogVisiblity" color="primary"
+                            [disabled]="eventForm.get('routeBannerCTAAction').value == 'Dialog'">
+                            Dialog Details
+                        </mat-checkbox>
+                    </div>
+                    <div class="banner-item-wrapper" *ngIf="eventForm.get('routeDialogVisiblity').value">
+                        <div class="item-wrapper">
+                            <div class="item-title">Show Dialog on the first visit</div>
+                            <div class="bottom-align">
+                                <mat-radio-group formControlName="routeDialogShowDialogFirst">
+                                    <mat-radio-button color="primary" value="true" class="radio-inline">Yes
+                                    </mat-radio-button>
+                                    <mat-radio-button color="primary" value="false" class="radio-inline">No
+                                    </mat-radio-button>
+                                </mat-radio-group>
+                            </div>
+                        </div>
+                        <div class="item-wrapper icon-wrapper">
+                            <div class="item-title">Icon</div>
+                            <div class="img-wrapper">
+                                <div class="background-image-style"
+                                    [ngClass]="eventForm.get('routeDialogIcon').value == bgImage ? 'border' : ''"
+                                    *ngFor="let bgImage of bgImagesForHome"
+                                    (click)="setImageUrl(bgImage, 'routeDialogIcon')"
+                                    [style.background-image]="getImage(bgImage)">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="item-wrapper">
+                            <div class="item-title">Heading Text</div>
+                            <div><input formControlName="routeDialogHeadingText" class="name-input light-bg"
+                                    type="text"></div>
+                        </div>
+                        <div class="item-wrapper textarea-wrapper">
+                            <div class="item-title">Body Text</div>
+                            <div><textarea formControlName="routeDialogBodyText"
+                                    class="name-input light-bg"></textarea></div>
+                        </div>
+                        <div class="item-wrapper">
+                            <div class="item-title">Button Text</div>
+                            <div><input formControlName="routeDialogCTAText" class="name-input light-bg"
+                                    type="text"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="section-wrapper">
+        <div>
+            <div class="toggle-title">
+                <div>Home Screen Message</div>
+                <mat-slide-toggle formControlName="isHomeScreen" color="primary">
+                </mat-slide-toggle>
+            </div>
+            <div class="banner-item-wrapper" *ngIf="eventForm.get('isHomeScreen').value">
+                <div class="item-wrapper">
+                    <div class="item-title">Message Form</div>
+                    <div>
+                        <mat-form-field>
+                            <mat-select formControlName="homeMessageFrom">
+                                <mat-option [value]="1">In-app</mat-option>
+                                <mat-option [value]="2">Onetime/Persistent banner
+                                </mat-option> 
+                                <!-- <mat-option [value]="3">Persistent banner on the
+                                    home screen</mat-option> -->
+                            </mat-select>
+                        </mat-form-field>
+                    </div>
+                </div>
+                <div *ngIf="eventForm.get('homeMessageFrom').value == 1">
+                    <div class="item-wrapper icon-wrapper">
+                        <div class="item-title">Icon</div>
+                        <div class="img-wrapper">
+                            <div *ngFor="let bgImage of bgImagesForHome"
+                                [ngClass]="eventForm.get('home1Icon').value == bgImage ? 'border' : ''"
+                                (click)="setImageUrl(bgImage, 'home1Icon')" class="background-image-style"
+                                [style.background-image]="getImage(bgImage)">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="item-wrapper">
+                        <div class="item-title">Heading</div>
+                        <div><input formControlName="home1Heading" class="name-input light-bg" type="text"></div>
+                    </div>
+                    <div class="item-wrapper">
+                        <div class="item-title">Body copy</div>
+                        <div><input formControlName="home1BodyCopy" class="name-input light-bg" type="text"></div>
+                    </div>
+                    <div class="mar-top-30">
+                        <div>Button</div>
+                        <div class="cta-wrapper">
+                            <div class="item-wrapper">
+                                <div class="item-title">Button Label</div>
+                                <div><input formControlName="home1CTALable" class="name-input light-bg" type="text">
+                                </div>
+                            </div>
+                            <div class="item-wrapper">
+                                <div class="item-title">Button Link</div>
+                                <div><input formControlName="home1CTALink" class="name-input light-bg" type="text">
+                                </div>
+                                <div class='form-error' *ngIf='eventForm.controls.home1CTALink.touched'>
+                                    <div *ngIf="eventForm.controls.home1CTALink.hasError('pattern')">
+                                        Link not valid.</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div
+                    *ngIf="eventForm.get('homeMessageFrom').value == 2 || eventForm.get('homeMessageFrom').value == 3">
+                    <div class="item-wrapper icon-wrapper">
+                        <div class="item-title">Icon</div>
+                        <div class="img-wrapper">
+                            <div *ngFor="let bgImage of bgImagesForHome"
+                                [ngClass]="eventForm.get('home2Icon').value == bgImage ? 'border' : ''"
+                                (click)="setImageUrl(bgImage, 'home2Icon')" class="background-image-style"
+                                [style.background-image]="getImage(bgImage)">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="item-wrapper">
+                        <div class="item-title">Message</div>
+                        <div><input formControlName="home2Message" class="name-input light-bg" type="text"></div>
+                    </div>
+                    <div class="mar-top-30">
+                        <div>Button (Optional)</div>
+                        <div class="cta-wrapper">
+                            <div class="item-wrapper">
+                                <div class="item-title">Button Label</div>
+                                <div><input formControlName="home2CTALable" class="name-input light-bg" type="text">
+                                </div>
+                            </div>
+                            <div class="item-wrapper">
+                                <div class="item-title">Button Link</div>
+                                <div><input formControlName="home2CTALink" class="name-input light-bg" type="text">
+                                </div>
+                                <div class='form-error' *ngIf='eventForm.controls.home2CTALink.touched'>
+                                    <div *ngIf="eventForm.controls.home2CTALink.hasError('pattern')">
+                                        Link not valid.</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="section-wrapper">
+        <div>
+            <div>Timeline</div>
+        </div>
+        <div class="banner-item-wrapper">
+            <div class="item-wrapper">
+                <div class="item-title">Type</div>
+                <div>
+                    <mat-form-field>
+                        <mat-select formControlName="timelineType">
+                            <mat-option [value]="'oneTime'">One time</mat-option>
+                            <mat-option [value]="'recurring'">Recurring</mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+            </div>
+            <div class="item-wrapper">
+                <div class="item-title">Start date:</div>
+                <div>
+                    <input class="calender-style" formControlName="startDate" matInput [matDatepicker]="picker">
+                    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                    <mat-datepicker #picker></mat-datepicker>
+                </div>
+            </div>
+            <div class="item-wrapper">
+                <div class="item-title">Start time:</div>
+                <div>
+                    <input class="calender-style" formControlName="startTime" [ngxTimepicker]="pickerStart"
+                        readonly>
+                    <ngx-material-timepicker #pickerStart></ngx-material-timepicker>
+                </div>
+            </div>
+            <div class="item-wrapper">
+                <div class="item-title">End date:</div>
+                <div>
+                    <input class="calender-style" formControlName="endDate" matInput [matDatepicker]="picker1">
+                    <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+                    <mat-datepicker #picker1></mat-datepicker>
+                </div>
+            </div>
+            <div class="item-wrapper">
+                <div class="item-title">End time:</div>
+                <div>
+                    <input class="calender-style" formControlName="endTime" [ngxTimepicker]="pickerEnd" readonly>
+                    <ngx-material-timepicker #pickerEnd></ngx-material-timepicker>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="button-wrapper">
+        <button (click)="back()" class="filter-btn" type="button">Cancel</button>
+        <button [disabled]="!eventForm.valid || isSaveDisable" (click)="checkValidation()" class="filter-btn"
+            type="button">Save</button>
+        <button [disabled]="!eventForm.valid || isSaveDisable" *ngIf="editItem && editItem.eventId"
+            (click)="publishOnDev()" class="filter-btn" type="button">Publish on Development</button>
+        <button [disabled]="!eventForm.valid || isSaveDisable" *ngIf="editItem && editItem.eventId"
+            (click)="publishOnProd()" class="filter-btn" type="button">Publish on Production</button>
+    </div>
+</form> 
+

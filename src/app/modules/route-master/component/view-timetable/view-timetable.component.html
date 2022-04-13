@@ -1,0 +1,33 @@
+<!-- <div class="spinner-wrapper" *ngIf="isShowLoader">
+    <mat-progress-spinner [color]="'primary'" [mode]="'indeterminate'" [diameter]="'50'" [strokeWidth]="'3'"
+        [value]="'100'">
+    </mat-progress-spinner>
+</div> -->
+
+<div class="view-timetable-wrapper">
+    <div [ngClass]="fileData?'header1':'header'">
+        <h2  class="heading">Time Table Details</h2>
+        <!-- <mat-icon class="icon" (click)="cancel()">clear</mat-icon> -->
+    </div>
+    <div class="scroll-div">
+        <div class="matrix-wrapper"  *ngIf="timeTableDataList.length">
+            <div class="fare-matrix">
+                <div class="matrix-row" *ngFor="let timeTable of timeTableDataList;let i = index">
+                    <div *ngFor="let data of timeTable;let j = index" class="fare">
+                       {{data}}
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div *ngIf="!timeTableDataList.length && !isShowLoader">
+            No Data Found
+        </div>
+
+    </div>
+    <div class="download-btn">
+    <!-- <button class="filter-btn" (click)="downloadTimeTable()">Download</button> -->
+    <!-- <button class="filter-btn" (click)="uploadTimeTable()">Upload</button> -->
+        <button class="filter-btn" *ngIf="!fileData" (click)="cancel()">CANCEL</button>
+    </div>
+
+</div>

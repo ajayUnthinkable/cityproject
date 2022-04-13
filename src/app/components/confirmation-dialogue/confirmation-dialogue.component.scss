@@ -1,0 +1,42 @@
+.filter-btn {
+  font-size: 14px;
+  padding: 09px 15px;
+  background: #f28100;
+  border: none;
+  color: #fff;
+  outline: none;
+  margin-left: 15px;
+  cursor: pointer;
+  font-weight: bold;
+  position: relative;
+  min-width: 80px;
+
+  .fa {
+    margin-right: 5px;
+  }
+}
+
+.action-btn {
+  margin-top: 16px;
+  display: flex;
+  justify-content: flex-end;
+  border-top: 02px solid lightgray;
+  padding: 24px;
+}
+
+.heading {
+  font-weight: 500;
+}
+
+.dialoge-wrapper {
+  min-width: 500px;
+}
+
+.cancel {
+  background: #eeeeee;
+  color: black;
+}
+
+.dialoge-content {
+  padding: 24px;
+}

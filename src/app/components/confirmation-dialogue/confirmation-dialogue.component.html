@@ -1,0 +1,14 @@
+<div class="dialoge-wrapper">
+    <div class="dialoge-content">
+        <h2 class="heading">
+            Confirmation
+        </h2>
+        <div class="">
+            {{message}}
+        </div>
+    </div>
+    <div class="action-btn">
+        <button *ngIf="cancelButton" mat-button (click)="cancel()" class="filter-btn cancel">{{cancelButton}}</button>
+        <button  mat-button (click)="success()" class="filter-btn">{{successButton}}</button>
+    </div>
+</div>

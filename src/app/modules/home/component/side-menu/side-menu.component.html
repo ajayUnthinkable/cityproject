@@ -1,0 +1,142 @@
+<mat-drawer-container hasBackdrop="false">
+    <mat-drawer *ngIf="isSideMenuVisible()" #drawer mode="side" opened [ngClass]="isMenuCollapsed? 'mat-drawer-open':''">
+        <ul #sideList>
+            <li class="chalo-icon" [ngClass]="isMenuCollapsed? 'align-center':''">
+                <img src='../../../../../assets/images/menu.png' class="toggle-icon" (click)="toggle()" />
+                <span *ngIf="!isMenuCollapsed">
+                    <img src="../../../../../assets/images/chalo_logo_white.png" width="100">
+                </span>
+            </li>
+            <li class="margin-top" [ngClass]="isMenuCollapsed && 'tooltip'">
+                <a class="align-center" (click)="navigateToPage('/home/routeMaster/routes/liveRoutes')"
+                    [ngClass]="(currentRoute==='liveRoutes' || currentRoute === 'addStop') &&'active'">
+                    <!-- <span class="list-item" *ngIf="!isMenuCollapsed">Live Routes</span> -->
+                    <!-- <span> <img 
+                        *ngIf="isMenuCollapsed" 
+                        src='../../../../../assets/images/tracking.png' 
+                        width="100" [ngClass]="((currentRoute==='liveRoutes' || currentRoute === 'addStop') &&'active')?'bg-color-primary':'bg-color-white'" 
+                        class="toggle-icon"/></span> -->
+                    <span *ngIf="isMenuCollapsed"><i class="fas fa-route menu-short-icon"></i></span>
+                    <span class="list-item" *ngIf="!isMenuCollapsed">Route Master</span>
+                </a>
+                <div *ngIf="!isMenuCollapsed" class="tooltiptext">
+                    <div class="margin-btm-6 city-label">
+                        <span>Route Master</span><br>
+                    </div>
+                </div>
+            </li>
+            <li class="margin-top" [ngClass]="isMenuCollapsed && 'tooltip'" *ngIf="userRole !== 'data executive' && userRole !== 'polyline executive'">
+                <a class="align-center" (click)="navigateToPage('/home/routeMaster/routes/reviewRoutes')"  [ngClass]="currentRoute==='reviewRoutes' &&'active'">
+
+                    <span *ngIf="isMenuCollapsed" > 
+                        <!-- <img 
+                        *ngIf="isMenuCollapsed" 
+                         src='../../../../../assets/images/review.png' 
+                         width="100"  
+                        [ngClass]="(currentRoute==='reviewRoutes' &&'active')?'bg-color-primary':'bg-color-white'" 
+                        class="toggle-icon"/> -->
+                        <i class="fas fa-upload menu-short-icon"></i>
+                    </span>
+                    <span class="list-item" *ngIf="!isMenuCollapsed">Review Routes</span>
+
+                </a>
+                <div *ngIf="!isMenuCollapsed" class="tooltiptext">
+                    <div class="margin-btm-6 city-label">
+                        <span>Review Routes</span><br>
+                    </div>
+                </div>
+            </li>
+
+            <li class="margin-top" [ngClass]="isMenuCollapsed && 'tooltip'" *ngIf="userRole !== 'polyline executive'">
+                <a class="align-center" (click)="navigateToPage('/home/stopMaster')"  [ngClass]="(currentRoute==='stopMaster' || currentRoute === 'editStop') &&'active'">
+
+                    <span *ngIf="isMenuCollapsed" >
+                         <!-- <img 
+                        *ngIf="isMenuCollapsed" 
+                        src='../../../../../assets/images/bus-stop.png' 
+                        width="100"  
+                        [ngClass]="((currentRoute==='stopMaster' || currentRoute === 'editStop') &&'active')?'bg-color-primary':'bg-color-white'"  
+                        class="toggle-icon"/> -->
+                        <i class="fas fa-map-marker-alt menu-short-icon"></i>
+                    </span>
+                    <span class="list-item" *ngIf="!isMenuCollapsed">Stops</span>
+                </a>
+                <div *ngIf="!isMenuCollapsed" class="tooltiptext">
+                    <div class="margin-btm-6 city-label">
+                        <span>Stops</span><br>
+                    </div>
+                </div>
+            </li>
+
+            <li class="margin-top" [ngClass]="isMenuCollapsed && 'tooltip'" *ngIf="userRole !== 'polyline executive'">
+                <a class="align-center" (click)="navigateToPage('/home/reports')"  [ngClass]="currentRoute==='reports' &&'active'">
+
+                        <span *ngIf="isMenuCollapsed" > 
+                            <!-- <img 
+                            *ngIf="isMenuCollapsed" 
+                            src='../../../../../assets/images/document.png' 
+                            width="100" 
+                            [ngClass]="(currentRoute==='reports' &&'active')?'bg-color-primary':'bg-color-white'" 
+                            class="toggle-icon"/> -->
+                            <i class="fas fa-file-csv menu-short-icon"></i>
+                        </span>
+                        <span class="list-item" *ngIf="!isMenuCollapsed">Reports</span>
+                
+                </a>
+                <div *ngIf="!isMenuCollapsed" class="tooltiptext">
+                    <div class="margin-btm-6 city-label">
+                        <span>Reports</span><br>
+                    </div>
+                </div>
+            </li>
+
+            <li class="margin-top" [ngClass]="isMenuCollapsed && 'tooltip'" *ngIf="userRole !== 'data executive' && userRole !== 'polyline executive'">
+                <a class="align-center" (click)="navigateToPage('/home/event-control')"  
+                [ngClass]="(currentRoute==='HomeScreenUpdateForm' || currentRoute==='eventControlForm' || currentRoute==='add-event' || currentRoute==='event-control') &&'active'">
+                        <span *ngIf="isMenuCollapsed" > 
+                            <!-- <img 
+                            *ngIf="isMenuCollapsed" 
+                            src='../../../../../assets/images/sound-mixer.png' 
+                            width="100" [ngClass]="((currentRoute==='HomeScreenUpdateForm' || currentRoute==='eventControlForm' || currentRoute==='add-event' || currentRoute==='event-control') &&'active')?'bg-color-primary':'bg-color-white'" 
+                            class="toggle-icon"/> -->
+                            <i class="far fa-calendar-alt menu-short-icon"></i>
+                        </span>
+                        <span class="list-item" *ngIf="!isMenuCollapsed">Event Control</span>
+                
+                </a>
+                <div *ngIf="!isMenuCollapsed" class="tooltiptext">
+                    <div class="margin-btm-6 city-label">
+                        <span>Event Control</span><br>
+                    </div>
+                </div>
+            </li>
+
+            <li class="city">
+                <div class="city-container">
+                    <span class="pointer" [matMenuTriggerFor]="menu"><i class="fas fa-user-circle user-profile" aria-hidden="true"></i></span>
+                    <mat-menu #menu="matMenu" xPosition="before" class="customized-mat-menu">
+                        <div class="setting-wrapper">
+                            <div class="name-wrapper">
+                                <div>{{email}}</div>
+                                <div class="role">{{userRole}}</div>
+                            </div>
+                            <div class="name-wrapper pointer" (click)="logOut()">
+                                Logout
+                            </div>
+                        </div>
+                    </mat-menu>
+                    <a (click)="openCityPopUp()" class="city-name">
+                        <span class="mar-right-20" *ngIf="!isMenuCollapsed"> {{city}}</span>
+                        <img src='../../../../../assets/images/sort-icon.png' class="sort-icon" />
+                    </a>
+                </div>
+            </li>
+
+        </ul>
+    </mat-drawer>
+    <mat-drawer-content [ngStyle]="style">
+        <div class="main-content">
+            <router-outlet></router-outlet>
+        </div>
+    </mat-drawer-content>
+</mat-drawer-container>

@@ -1,0 +1,18 @@
+<div>
+    <div class="mar-bot-34 heading heading-text">
+        <h1 class="heading">Upload Time Table</h1>
+    </div>
+    <div class="csv-wrapper">
+        <input class="mediaCapture" #fileUpload type="file" accept=".csv" (change)="fileSelected($event)">
+        <div class="wrapper" #file (click)="fileUpload.click()">Select File</div>
+        <div class="error-msg" *ngIf="errorMsg">{{errorMsg}}</div>
+        <div class="btn-wrapper">
+            <button (click)="close()" [disabled]="isSaveDisable" class="app-btn"><span>{{isSaveDisable ? 'Please
+                    wait' : 'CANCEL'}}</span></button>
+            <button (click)="upload()" [disabled]="isSaveDisable || !csvJSON || (csvJSON && csvJSON.length == 0)"
+                class="app-btn">
+                <span>{{isSaveDisable ? 'Please wait' : 'UPLOAD'}}</span>
+            </button>
+        </div>
+    </div>
+</div>

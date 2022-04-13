@@ -1,0 +1,144 @@
+@import "../../../../../theme/variables.scss";
+
+.view-timetable-wrapper {
+  position: relative;
+//   width: 400px;
+  width: min-content;
+}
+
+.heading {
+  color: $primary;
+  font-weight: bold;
+  display: inline-block;
+}
+
+.download-btn {
+  display: flex;
+  justify-content: center;
+  padding: 15px;
+  padding-right: 32px !important;
+}
+
+.filter-btn {
+  font-size: 14px;
+  padding: 12px 15px;
+  background: #f28100;
+  border: none;
+  color: #fff;
+  outline: none;
+  margin-left: 15px;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.icon {
+    position: absolute;
+    right: 0;
+    cursor: pointer;
+}
+
+.time-table{ 
+    min-height:50vh;
+}
+
+.matrix-wrapper {
+    overflow: auto;
+    padding-top: 20px;
+    display: table;
+    margin: auto;
+  }
+
+.fare-matrix {
+    display: table-row-group;
+    padding-right: 10px;
+    width: fit-content;
+  }
+
+.matrix-row {
+    display: table-row;
+  }
+
+
+  .header {
+    border-bottom: 01px solid #ddd;
+  }
+
+  .header1 {
+    border-bottom: 01px solid #ddd;
+    padding-top: 64px;
+    padding-left: 32px;
+  }
+  
+  .fare-matrix {
+    display: table-row-group;
+    padding-right: 10px;
+    width: fit-content;
+  }
+  
+  .fare {
+    padding: 15px;
+    min-width: 40px;
+    min-height: 46px;
+    text-align: center;
+    vertical-align: middle;
+    border: 01px solid black;
+    display: table-cell;
+  }
+ 
+  .hidden {
+    display: none;
+  }
+  
+  .fare-matrix :first-child {
+    background-color: $primary;
+    color: white;
+  }
+  
+  .icon {
+    position: absolute;
+    right: 0;
+    cursor: pointer;
+  }
+  
+  .matrix-wrapper {
+    overflow: auto;
+    // padding: 20px;
+    display: table;
+    margin: auto;
+  }
+  
+  .matrix-row {
+    display: table-row;
+  }
+  .filter-btn {
+    font-size: 14px;
+    padding: 12px 15px;
+    background: #f28100;
+    border: none;
+    color: #fff;
+    outline: none;
+    margin-left: 15px;
+    cursor: pointer;
+    font-weight: 500;
+  }
+  
+  .download-btn {
+    display: flex;
+    justify-content: flex-end;
+    padding: 15px;
+  }
+  
+//   .max-stretch {
+//     // width: 850px;
+//     height: calc(80vh - 150px);
+//   }
+  .scroll-div{
+    overflow-y:auto;
+    max-height:400px;
+    width: 446px;
+  }
+  
+  .fare-item {
+    color: black !important;
+    background-color: white !important;
+  }

@@ -1,0 +1,80 @@
+import { ChangeDetectorRef, EventEmitter } from '@angular/core';
+import { PaginationService } from './pagination.service';
+import * as ɵngcc0 from '@angular/core';
+export interface Page {
+    label: string;
+    value: any;
+}
+/**
+ * This directive is what powers all pagination controls components, including the default one.
+ * It exposes an API which is hooked up to the PaginationService to keep the PaginatePipe in sync
+ * with the pagination controls.
+ */
+export declare class PaginationControlsDirective {
+    private service;
+    private changeDetectorRef;
+    id: string;
+    maxSize: number;
+    pageChange: EventEmitter<number>;
+    pageBoundsCorrection: EventEmitter<number>;
+    pages: Page[];
+    private changeSub;
+    constructor(service: PaginationService, changeDetectorRef: ChangeDetectorRef);
+    ngOnInit(): void;
+    ngOnChanges(changes: any): void;
+    ngOnDestroy(): void;
+    /**
+     * Go to the previous page
+     */
+    previous(): void;
+    /**
+     * Go to the next page
+     */
+    next(): void;
+    /**
+     * Returns true if current page is first page
+     */
+    isFirstPage(): boolean;
+    /**
+     * Returns true if current page is last page
+     */
+    isLastPage(): boolean;
+    /**
+     * Set the current page number.
+     */
+    setCurrent(page: number): void;
+    /**
+     * Get the current page number.
+     */
+    getCurrent(): number;
+    /**
+     * Returns the last page number
+     */
+    getLastPage(): number;
+    getTotalItems(): number;
+    private checkValidId;
+    /**
+     * Updates the page links and checks that the current page is valid. Should run whenever the
+     * PaginationService.change stream emits a value matching the current ID, or when any of the
+     * input values changes.
+     */
+    private updatePageLinks;
+    /**
+     * Checks that the instance.currentPage property is within bounds for the current page range.
+     * If not, return a correct value for currentPage, or the current value if OK.
+     */
+    private outOfBoundCorrection;
+    /**
+     * Returns an array of Page objects to use in the pagination controls.
+     */
+    private createPageArray;
+    /**
+     * Given the position in the sequence of pagination links [i],
+     * figure out what page number corresponds to that position.
+     */
+    private calculatePageNumber;
+    static ɵfac: ɵngcc0.ɵɵFactoryDef<PaginationControlsDirective, never>;
+    static ɵdir: ɵngcc0.ɵɵDirectiveDefWithMeta<PaginationControlsDirective, "pagination-template,[pagination-template]", ["paginationApi"], { "maxSize": "maxSize"; "id": "id"; }, { "pageChange": "pageChange"; "pageBoundsCorrection": "pageBoundsCorrection"; }, never>;
+}
+
+//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoicGFnaW5hdGlvbi1jb250cm9scy5kaXJlY3RpdmUuZC50cyIsInNvdXJjZXMiOlsicGFnaW5hdGlvbi1jb250cm9scy5kaXJlY3RpdmUuZC50cyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiQUFBQTtBQUNBOztBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTs7O0FBQ0EiLCJzb3VyY2VzQ29udGVudCI6WyJpbXBvcnQgeyBDaGFuZ2VEZXRlY3RvclJlZiwgRXZlbnRFbWl0dGVyIH0gZnJvbSAnQGFuZ3VsYXIvY29yZSc7XHJcbmltcG9ydCB7IFBhZ2luYXRpb25TZXJ2aWNlIH0gZnJvbSAnLi9wYWdpbmF0aW9uLnNlcnZpY2UnO1xyXG5leHBvcnQgaW50ZXJmYWNlIFBhZ2Uge1xyXG4gICAgbGFiZWw6IHN0cmluZztcclxuICAgIHZhbHVlOiBhbnk7XHJcbn1cclxuLyoqXHJcbiAqIFRoaXMgZGlyZWN0aXZlIGlzIHdoYXQgcG93ZXJzIGFsbCBwYWdpbmF0aW9uIGNvbnRyb2xzIGNvbXBvbmVudHMsIGluY2x1ZGluZyB0aGUgZGVmYXVsdCBvbmUuXHJcbiAqIEl0IGV4cG9zZXMgYW4gQVBJIHdoaWNoIGlzIGhvb2tlZCB1cCB0byB0aGUgUGFnaW5hdGlvblNlcnZpY2UgdG8ga2VlcCB0aGUgUGFnaW5hdGVQaXBlIGluIHN5bmNcclxuICogd2l0aCB0aGUgcGFnaW5hdGlvbiBjb250cm9scy5cclxuICovXHJcbmV4cG9ydCBkZWNsYXJlIGNsYXNzIFBhZ2luYXRpb25Db250cm9sc0RpcmVjdGl2ZSB7XHJcbiAgICBwcml2YXRlIHNlcnZpY2U7XHJcbiAgICBwcml2YXRlIGNoYW5nZURldGVjdG9yUmVmO1xyXG4gICAgaWQ6IHN0cmluZztcclxuICAgIG1heFNpemU6IG51bWJlcjtcclxuICAgIHBhZ2VDaGFuZ2U6IEV2ZW50RW1pdHRlcjxudW1iZXI+O1xyXG4gICAgcGFnZUJvdW5kc0NvcnJlY3Rpb246IEV2ZW50RW1pdHRlcjxudW1iZXI+O1xyXG4gICAgcGFnZXM6IFBhZ2VbXTtcclxuICAgIHByaXZhdGUgY2hhbmdlU3ViO1xyXG4gICAgY29uc3RydWN0b3Ioc2VydmljZTogUGFnaW5hdGlvblNlcnZpY2UsIGNoYW5nZURldGVjdG9yUmVmOiBDaGFuZ2VEZXRlY3RvclJlZik7XHJcbiAgICBuZ09uSW5pdCgpOiB2b2lkO1xyXG4gICAgbmdPbkNoYW5nZXMoY2hhbmdlczogYW55KTogdm9pZDtcclxuICAgIG5nT25EZXN0cm95KCk6IHZvaWQ7XHJcbiAgICAvKipcclxuICAgICAqIEdvIHRvIHRoZSBwcmV2aW91cyBwYWdlXHJcbiAgICAgKi9cclxuICAgIHByZXZpb3VzKCk6IHZvaWQ7XHJcbiAgICAvKipcclxuICAgICAqIEdvIHRvIHRoZSBuZXh0IHBhZ2VcclxuICAgICAqL1xyXG4gICAgbmV4dCgpOiB2b2lkO1xyXG4gICAgLyoqXHJcbiAgICAgKiBSZXR1cm5zIHRydWUgaWYgY3VycmVudCBwYWdlIGlzIGZpcnN0IHBhZ2VcclxuICAgICAqL1xyXG4gICAgaXNGaXJzdFBhZ2UoKTogYm9vbGVhbjtcclxuICAgIC8qKlxyXG4gICAgICogUmV0dXJucyB0cnVlIGlmIGN1cnJlbnQgcGFnZSBpcyBsYXN0IHBhZ2VcclxuICAgICAqL1xyXG4gICAgaXNMYXN0UGFnZSgpOiBib29sZWFuO1xyXG4gICAgLyoqXHJcbiAgICAgKiBTZXQgdGhlIGN1cnJlbnQgcGFnZSBudW1iZXIuXHJcbiAgICAgKi9cclxuICAgIHNldEN1cnJlbnQocGFnZTogbnVtYmVyKTogdm9pZDtcclxuICAgIC8qKlxyXG4gICAgICogR2V0IHRoZSBjdXJyZW50IHBhZ2UgbnVtYmVyLlxyXG4gICAgICovXHJcbiAgICBnZXRDdXJyZW50KCk6IG51bWJlcjtcclxuICAgIC8qKlxyXG4gICAgICogUmV0dXJucyB0aGUgbGFzdCBwYWdlIG51bWJlclxyXG4gICAgICovXHJcbiAgICBnZXRMYXN0UGFnZSgpOiBudW1iZXI7XHJcbiAgICBnZXRUb3RhbEl0ZW1zKCk6IG51bWJlcjtcclxuICAgIHByaXZhdGUgY2hlY2tWYWxpZElkO1xyXG4gICAgLyoqXHJcbiAgICAgKiBVcGRhdGVzIHRoZSBwYWdlIGxpbmtzIGFuZCBjaGVja3MgdGhhdCB0aGUgY3VycmVudCBwYWdlIGlzIHZhbGlkLiBTaG91bGQgcnVuIHdoZW5ldmVyIHRoZVxyXG4gICAgICogUGFnaW5hdGlvblNlcnZpY2UuY2hhbmdlIHN0cmVhbSBlbWl0cyBhIHZhbHVlIG1hdGNoaW5nIHRoZSBjdXJyZW50IElELCBvciB3aGVuIGFueSBvZiB0aGVcclxuICAgICAqIGlucHV0IHZhbHVlcyBjaGFuZ2VzLlxyXG4gICAgICovXHJcbiAgICBwcml2YXRlIHVwZGF0ZVBhZ2VMaW5rcztcclxuICAgIC8qKlxyXG4gICAgICogQ2hlY2tzIHRoYXQgdGhlIGluc3RhbmNlLmN1cnJlbnRQYWdlIHByb3BlcnR5IGlzIHdpdGhpbiBib3VuZHMgZm9yIHRoZSBjdXJyZW50IHBhZ2UgcmFuZ2UuXHJcbiAgICAgKiBJZiBub3QsIHJldHVybiBhIGNvcnJlY3QgdmFsdWUgZm9yIGN1cnJlbnRQYWdlLCBvciB0aGUgY3VycmVudCB2YWx1ZSBpZiBPSy5cclxuICAgICAqL1xyXG4gICAgcHJpdmF0ZSBvdXRPZkJvdW5kQ29ycmVjdGlvbjtcclxuICAgIC8qKlxyXG4gICAgICogUmV0dXJucyBhbiBhcnJheSBvZiBQYWdlIG9iamVjdHMgdG8gdXNlIGluIHRoZSBwYWdpbmF0aW9uIGNvbnRyb2xzLlxyXG4gICAgICovXHJcbiAgICBwcml2YXRlIGNyZWF0ZVBhZ2VBcnJheTtcclxuICAgIC8qKlxyXG4gICAgICogR2l2ZW4gdGhlIHBvc2l0aW9uIGluIHRoZSBzZXF1ZW5jZSBvZiBwYWdpbmF0aW9uIGxpbmtzIFtpXSxcclxuICAgICAqIGZpZ3VyZSBvdXQgd2hhdCBwYWdlIG51bWJlciBjb3JyZXNwb25kcyB0byB0aGF0IHBvc2l0aW9uLlxyXG4gICAgICovXHJcbiAgICBwcml2YXRlIGNhbGN1bGF0ZVBhZ2VOdW1iZXI7XHJcbn1cclxuIl19

@@ -1,0 +1,29 @@
+<div class="spinner-wrapper" *ngIf="isShowLoader">
+    <mat-progress-spinner [color]="'primary'" [mode]="'indeterminate'" [diameter]="'50'" [strokeWidth]="'3'"
+        [value]="'100'">
+    </mat-progress-spinner>
+</div>
+
+<div class="view-timetable-wrapper">
+    <div class="header">
+        <h1 class="heading">Time Table</h1>
+        <mat-icon class="icon" (click)="cancel()">clear</mat-icon>
+    </div>
+    <!-- <div class="time-table">
+        <mat-tab-group animationDuration="0ms" [(selectedIndex)]="selectedTabIndex" (selectedIndexChange)="tabChange()"
+            mat-stretch-tabs class="max-stretch">
+            <mat-tab label="PreProd">
+                <p *ngIf="timeTable">Time table</p>
+                <p *ngIf="!timeTable">No Data Available</p>
+            </mat-tab>
+            <mat-tab label="Prod">
+                <p *ngIf="timeTable">Time table</p>
+                <p *ngIf="!timeTable">No Data Available</p>
+            </mat-tab>
+        </mat-tab-group>
+    </div> -->
+    <div class="download-btn">
+        <!-- <button class="filter-btn" (click)="downloadTimeTable()">Download</button> -->
+        <button class="filter-btn" (click)="uploadTimeTable()">Upload</button>
+    </div>
+</div>

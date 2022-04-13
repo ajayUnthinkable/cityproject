@@ -1,0 +1,560 @@
+<div class="spinner-wrapper" *ngIf="isShowLoader">
+  <mat-progress-spinner
+    [color]="'primary'"
+    [mode]="'indeterminate'"
+    [diameter]="'50'"
+    [strokeWidth]="'3'"
+    [value]="'100'"
+  >
+  </mat-progress-spinner>
+</div>
+<div class="wrapper" [ngClass]="{ 'remove-height': selectedTabIndex !== 0 }">
+  <div class="tab-container">
+    <div class="icon-div icon" (click)="goBack()">
+      <img src="../../../../../assets/images/back-arrow.png" />
+    </div>
+    <div>
+      <mat-tab-group
+        animationDuration="0ms"
+        mat-stretch-tabs
+        class="max-stretch"
+        [(selectedIndex)]="selectedTabIndex"
+      >
+        <mat-tab label="Stops">
+          <form [formGroup]="searchStopForm">
+            <div
+              [ngClass]="
+                deleteStopArray && deleteStopArray.length
+                  ? 'search-input1'
+                  : 'search-input'
+              "
+            >
+              <span>
+                <mat-icon
+                  [ngClass]="
+                    deleteStopArray && deleteStopArray.length
+                      ? 'search-icon1'
+                      : 'search-icon'
+                  "
+                  *ngIf="!searchStopForm.get('searchStop').value.length"
+                >
+                  search</mat-icon
+                >
+                <mat-icon
+                  [ngClass]="
+                    deleteStopArray && deleteStopArray.length
+                      ? 'search-icon1'
+                      : 'search-icon'
+                  "
+                  (click)="close()"
+                  *ngIf="searchStopForm.get('searchStop').value.length"
+                  >close</mat-icon
+                >
+              </span>
+              <input
+                type="text"
+                placeholder="Search"
+                (keyup)="searchStop($event.target.value)"
+                formControlName="searchStop"
+              />
+            </div>
+            <div
+              style="height: 0px"
+              *ngIf="deleteStopArray && deleteStopArray.length"
+            >
+              <span>
+                <button
+                  class="filter-btn delete-stops"
+                  (click)="deleteSelectedStops()"
+                >
+                  Delete
+                </button>
+              </span>
+            </div>
+          </form>
+          <div
+            class="stop-list"
+            *ngIf="stopList && stopList.length"
+            cdkDropList
+            (cdkDropListDropped)="drop($event)"
+          >
+            <div
+              *ngFor="let stop of stopList; let i = index"
+              class="stop"
+              [ngClass]="
+                isStopSelected &&
+                stop['seqNo'] === selectedStop &&
+                'bg-transparent'
+              "
+              cdkDrag
+            >
+              <div class="stop-container">
+                <div
+                  [ngClass]="
+                    !isEdit && stop['seqNo'] == selectedStop
+                      ? 'stop-name-container'
+                      : 'stop-name-container'
+                  "
+                >
+                  <div style="display: flex">
+                    <div
+                      class="checkbox"
+                      *ngIf="
+                        (!isEdit && stop['seqNo'] == selectedStop) ||
+                        (deleteStopArray && deleteStopArray.length)
+                      "
+                    >
+                      <mat-checkbox
+                        color="primary"
+                        [value]="stop['seqNo']"
+                        class="delete-box"
+                        [checked]="isChecked(stop['seqNo'])"
+                        (change)="onChange($event)"
+                      ></mat-checkbox>
+                    </div>
+                    <div
+                      class="sequence-no"
+                      [ngClass]="isStopSelected && 'bg-white'"
+                    >
+                      {{ stop["seqNo"] }}
+                    </div>
+                    <div>
+                      <div>
+                        <div
+                          (click)="stopClicked(stop['seqNo'])"
+                          *ngIf="!isEdit || stop['seqNo'] != selectedStop"
+                          class="stop-name"
+                          [ngClass]="
+                            stop['seqNo'] === selectedStop && 'selected-stop'
+                          "
+                        >
+                          {{ stop["stopName"] }}
+                          <br />
+                          <span
+                            class="translated-name"
+                            *ngIf="
+                              !(stop['seqNo'] == selectedStop && !isEdit) &&
+                              stop['ls']
+                            "
+                            >{{ getStopTranslatedName(stop) }}</span
+                          >
+                        </div>
+                        <div
+                          *ngIf="
+                            isStopSelected && stop['seqNo'] === selectedStop
+                          "
+                          [ngClass]="
+                            isEdit && stop['seqNo'] == selectedStop
+                              ? 'margin-24'
+                              : ''
+                          "
+                        >
+                          <div *ngIf="!isEdit" class="lat-lng margin-top-10">
+                            Lat : {{ getUptofourDigit(stop["lat"]) }}
+                          </div>
+                          <div *ngIf="!isEdit" class="lat-lng">
+                            Lng : {{ getUptofourDigit(stop["long"]) }}
+                          </div>
+                          <div
+                            *ngIf="
+                              !isEdit && languagesList && languagesList.length
+                            "
+                          >
+                            <div
+                              class="translation-heading"
+                              *ngIf="isAvailableTranslationLs(stop)"
+                            >
+                              Translations
+                            </div>
+                            <div class="mt-5">
+                              <div
+                                class="lang-list-view"
+                                *ngFor="let key of languagesList"
+                              >
+                                <div *ngIf="isAvailableTranslation(key, stop)">
+                                  <span class="lang-type">
+                                    {{ getKeyForTranslation(stop, key) }}
+                                  </span>
+                                  : {{ getDesiredLanguage(key, stop) }}
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                          <div *ngIf="!isEdit">
+                            <div
+                              *ngFor="let nearbyStop of stop.nearbyStops"
+                              class="nearby-stop"
+                            >
+                              <span>
+                                {{ nearbyStop.stopName }}
+                              </span>
+                              <span
+                                class="merge"
+                                (click)="mergeStop(nearbyStop)"
+                              >
+                                <img src="assets/images/merge.png" />
+                              </span>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <span
+                    class="stop-name-1 stop-name-input"
+                    *ngIf="isEdit && stop['seqNo'] === selectedStop"
+                  >
+                    <mat-form-field style="width: 165px">
+                      <input matInput #myInput [value]="stop['stopName']" />
+                    </mat-form-field>
+
+                    <mat-form-field style="width: 165px">
+                      <input
+                        matInput
+                        #myInputLat
+                        [value]="getUptofourDigit(stop['lat'])"
+                      />
+                    </mat-form-field>
+
+                    <mat-form-field style="width: 165px">
+                      <input
+                        matInput
+                        #myInputLng
+                        [value]="getUptofourDigit(stop['long'])"
+                      />
+                    </mat-form-field>
+                  </span>
+                  <!-- <div class="translation-component-wrapper" *ngIf="isEdit && stop['seqNo'] === selectedStop && languagesList && languagesList.length">
+                                        <div class="translation-heading ml-34">Translations</div>
+                                        <div>
+                                            <app-translation-component 
+                                            [translatedList]="prefilledTranslatedList" 
+                                            ></app-translation-component>
+                                        </div>
+                                    </div> -->
+                  <div
+                    *ngIf="isEdit && stop['seqNo'] === selectedStop"
+                    class="action"
+                  >
+                    <img
+                      src="../../../../../assets/images/close-circle.png"
+                      (click)="cancelEditing()"
+                      class="action-icon"
+                    />
+                    <img
+                      src="../../../../../assets/images/check-circle.png"
+                      (click)="
+                        editStopName(
+                          stop['seqNo'],
+                          myInput.nativeElement.value,
+                          myInputLat.nativeElement.value,
+                          myInputLng.nativeElement.value
+                        )
+                      "
+                      class="action-icon"
+                    />
+                  </div>
+                </div>
+                <span
+                  class="arrow"
+                  *ngIf="!isEdit && stop['seqNo'] == selectedStop"
+                  cdkDragHandle
+                >
+                  <img src="../../../../../assets/images/zoom-out.png" />
+                </span>
+                <span
+                  class="option"
+                  *ngIf="!isEdit && stop['seqNo'] == selectedStop"
+                >
+                  <mat-icon [matMenuTriggerFor]="menu">more_vert</mat-icon>
+                </span>
+                <mat-menu #menu="matMenu" xPosition="before">
+                  <button mat-menu-item (click)="editStop(stop)">Edit</button>
+                  <button mat-menu-item (click)="removeStop(stop.seqNo)">
+                    Remove
+                  </button>
+                </mat-menu>
+              </div>
+
+              <!-- <div *ngIf="isStopSelected && stop['seqNo'] === selectedStop" [ngClass] = "isEdit && stop['seqNo'] == selectedStop ? 'margin-24':''">
+                                <span *ngIf="!isEdit" class="lat-lng margin-top-53">Lat : {{getUptofourDigit(stop['lat'])}}</span> 
+                                <span *ngIf="!isEdit" class="lat-lng">Lng : {{getUptofourDigit(stop['long'])}}</span> 
+                                <div *ngIf="(!isEdit && languagesList && languagesList.length)">
+                                    <div class="translation-heading" *ngIf="isAvailableTranslationLs(stop)">Translations</div>
+                                    <div class="mt-10">
+                                        <div  class="lang-list-view" *ngFor="let key of languagesList;">
+                                            <div *ngIf="isAvailableTranslation(key,stop)"> <span class="lang-type"> {{getKeyForTranslation(stop,key)}} </span> : {{getDesiredLanguage(key,stop)}}</div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div *ngIf="!isEdit">
+                                <div *ngFor="let nearbyStop of stop.nearbyStops" class="nearby-stop">
+                                    <span>
+                                        {{nearbyStop.stopName}}
+                                    </span>
+                                    <span class="merge" (click)="mergeStop(nearbyStop)">
+                                        <img src="assets/images/merge.png" />
+                                    </span>
+                                </div>
+                                </div>
+                            </div> -->
+            </div>
+          </div>
+          <div *ngIf="stopList && !stopList.length" class="not-found">
+            No Stops Found
+          </div>
+        </mat-tab>
+        <mat-tab label="Timetable">
+          <div class="tab-wrapper">
+            <input
+              class="mediaCapture"
+              #fileUpload
+              type="file"
+              accept=".csv"
+              (change)="fileSelected($event)"
+            />
+            <div class="csv-wrapper">
+              <div #file (click)="fileUpload.click()">Upload File</div>
+              <span
+                *ngIf="this.timeTable"
+                (click)="removeFile()"
+                class="remove-btn"
+                >Remove</span
+              >
+            </div>
+          </div>
+        </mat-tab>
+        <mat-tab label="Fares">
+          <!-- <div class="tab-wrapper">
+                        <input class="mediaCapture" #fileUpload1 type="file" accept=".csv"
+                            (change)="fileSelected($event)" />
+                        <div class="csv-wrapper">
+                            <div #file1 (click)="fileUpload1.click()">Upload File</div>
+                            <span *ngIf="this.fareFile" (click)="removeFile()" class="remove-btn">Remove</span>
+                        </div>
+                    </div>
+                    -->
+        </mat-tab>
+        <mat-tab label="Distance">
+          <div class="tab-wrapper">
+            <input
+              class="mediaCapture"
+              #fileUpload2
+              type="file"
+              accept=".csv"
+              (change)="fileSelected($event)"
+            />
+            <div class="csv-wrapper">
+              <div #file2 (click)="fileUpload2.click()">Upload File</div>
+              <span
+                *ngIf="this.distanceFile"
+                (click)="removeFile()"
+                class="remove-btn"
+                >Remove</span
+              >
+            </div>
+          </div>
+        </mat-tab>
+      </mat-tab-group>
+    </div>
+  </div>
+  <div class="map-container">
+    <div class="filter-bar">
+      <div class="search">
+        <span *ngIf="newRouteDetails">{{ newRouteDetails.name }}</span>
+        <span class="details" (click)="editDetails()">Details</span>
+      </div>
+      <!-- <div class="">
+        <label for="from-date">From: </label>
+        <input type="datetime-local" id="from-data" />
+      </div> -->
+
+      <!-- by ajay, datetime picker -->
+
+      <!-- <mat-form-field appearance="fill">
+        <mat-label>Enter a date range</mat-label>
+        <mat-date-range-input [formGroup]="" [rangePicker]="picker">
+          <input
+            matStartDate
+            formControlName="start"
+            placeholder="Start date"
+          />
+          <input matEndDate formControlName="end" placeholder="End date" />
+        </mat-date-range-input>
+        <mat-hint>MM/DD/YYYY – MM/DD/YYYY</mat-hint>
+        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-date-range-picker #picker></mat-date-range-picker>
+
+        <mat-error *ngIf="range.controls.start.hasError('matStartDateInvalid')"
+          >Invalid start date</mat-error
+        >
+        <mat-error *ngIf="range.controls.end.hasError('matEndDateInvalid')"
+          >Invalid end date</mat-error
+        > </mat-form-field
+      > -->
+
+      <div id="show-accuracy">Accuracy: {{ show_accuracy }}</div>
+
+      <button class="filter-btn submit" (click)="submit()">Submit</button>
+    </div>
+    <div>
+      <input
+        id="pac-input"
+        class="controls"
+        type="text"
+        placeholder="Search New Stops"
+        [ngClass]="showSearchBox ? 'show' : 'hide'"
+      />
+    </div>
+    <div
+      #map
+      class="map-wrapper"
+      [ngStyle]="{ visibility: selectedTabIndex === 0 ? 'visible' : 'hidden' }"
+    ></div>
+    <div class="slider" *ngIf="isRadiusClicked && selectedTabIndex === 0">
+      <mat-slider
+        thumbLabel
+        [displayWith]="formatLabel"
+        tickInterval="1"
+        min="1"
+        max="100"
+        (change)="radiusChanged($event)"
+        color="primary"
+        [value]="radius"
+      ></mat-slider>
+    </div>
+  </div>
+</div>
+<div *ngIf="selectedTabIndex === 1" class="tab-content">
+  <div class="map-wrapper" *ngIf="timeTableFileData">
+    <app-view-timetable [fileData]="timeTableFileData"></app-view-timetable>
+  </div>
+  <!-- TODO : code for TimeTable Tab Goes here -->
+</div>
+
+<div *ngIf="selectedTabIndex === 2" id="fare-tab" class="tab-content">
+  <form [formGroup]="multiCategoryFareForm">
+    <div formArrayName="categories">
+      <div class="flex-row" style="margin: 25px 0px 15px 0px">
+        <div class="box-sno-col" style="flex-basis: 24px"></div>
+        <div class="box-category-col">
+          <div><strong>Select Category</strong></div>
+        </div>
+        <div class="box-upload-col">
+          <div style="margin-left: 15px"><strong>Upload File</strong></div>
+        </div>
+        <div class="box-remove-col"></div>
+      </div>
+      <div class="grey-underline"></div>
+      <div
+        class="flex-row"
+        *ngFor="let control of getCategoryControls(); let i = index"
+      >
+        <div
+          class="box-sno-col justify-center"
+          style="font-size: 14px; margin-left: 15px"
+        >
+          <span
+            ><strong>{{ i + 1 }}.</strong></span
+          >
+        </div>
+        <div class="box-category-col">
+          <div class="margin-right-50">
+            <mat-form-field appearance="fill">
+              <mat-select
+                placeholder="Select Category"
+                [formControlName]="i"
+                [compareWith]="compState"
+              >
+                <mat-option
+                  *ngFor="
+                    let category of getRemainingCategories(control.value);
+                    let c = index
+                  "
+                  [value]="category"
+                >
+                  {{ category }}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+        </div>
+
+        <div class="box-upload-col">
+          <div class="margin-right-50">
+            <div class="justify-right">
+              <div
+                *ngIf="categoryFareObject[control.value]; else uploadTemplate"
+                class="csv-wrapper remove-margin"
+              >
+                <div style="margin-left: 7px">
+                  {{ categoryFareObject[control.value].name }}
+                </div>
+                <span
+                  (click)="removeFileFromCategory(control.value)"
+                  class="remove-btn"
+                  style="margin-right: 13px"
+                  >Remove</span
+                >
+              </div>
+              <ng-template #uploadTemplate>
+                <input
+                  class="mediaCapture"
+                  #fileUploader
+                  type="file"
+                  accept=".csv"
+                  (change)="uploadFile($event)"
+                />
+                <div
+                  [ngClass]="{
+                    'remove-pointer-events': control.value === null
+                  }"
+                  class="csv-wrapper remove-margin"
+                  (click)="
+                    setCategoryUploaded(control.value); fileUploader.click()
+                  "
+                >
+                  <div style="margin-left: 7px">Upload File</div>
+                </div>
+              </ng-template>
+            </div>
+          </div>
+        </div>
+        <div class="box-remove-col justify-right">
+          <div
+            [ngClass]="{
+              'display-none':
+                getControlCount() <= 1 &&
+                getObjectLength(categoryFareObject) === 0
+            }"
+            (click)="removeCategory(i, control.value)"
+            style="margin-right: 1.9rem"
+            class="wrapper-remove"
+          >
+            <i class="material-icons" style="color: #f28100">delete</i>
+            <span class="remove-category-btn" style="font-size: 14px"
+              >Remove</span
+            >
+          </div>
+        </div>
+      </div>
+    </div>
+  </form>
+  <div
+    *ngIf="getControlCount() < getArrayLength(allPossibleCategories)"
+    (click)="addNewCategory()"
+    class="new-category"
+  >
+    <svg height="30" viewBox="0 0 24 24" width="30" style="fill: #f28100">
+      <path d="M0 0h24v24H0V0z" fill="none" />
+      <path
+        d="M13 7h-2v4H7v2h4v4h2v-4h4v-2h-4V7zm-1-5C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8z"
+      />
+    </svg>
+    <span style="margin-left: 8px">Add New Category</span>
+  </div>
+</div>
+
+<!-- Following container is used to set the background white-->
+<div *ngIf="selectedTabIndex !== 0" class="background-container"></div>

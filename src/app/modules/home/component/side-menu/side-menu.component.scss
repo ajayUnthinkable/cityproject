@@ -1,0 +1,222 @@
+mat-drawer-container {
+  height: 100vh;
+  width: 100%;
+}
+mat-drawer-content {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+mat-drawer {
+  width: 210px;
+  background: #100d19;
+  color: #82858a;
+  font-size: 18px;
+  font-weight: 400;
+  padding: 15px 20px;
+}
+
+.bg-color-white {
+    background-color: white;
+}
+
+.bg-color-primary {
+  background-color:#da7134;;
+}
+
+
+.chalo-icon {
+  margin: 0;
+  color: white;
+  background: #0f0d19;
+}
+
+.header {
+  background: #fafafa;
+}
+
+ul {
+  margin: 0px;
+  padding: 0px;
+  width: 100%;
+  list-style: none;
+}
+
+li,
+a {
+  width: 100%;
+  font-size: 16px;
+  color: rgba(255, 255, 255, 0.7);
+  text-decoration: none;
+}
+
+li a:hover {
+  color: #da7134;
+  cursor: pointer;
+}
+
+li a:active,
+a:focus {
+  color: #da7134;
+}
+
+.active {
+  color: #da7134;
+}
+.logo {
+  margin-left: 20px;
+}
+
+img {
+  margin-left: 10px;
+  width: 98px;
+  position: absolute;
+}
+
+.list-item {
+  font-weight: 400;
+}
+
+.margin-top {
+  margin-top: 20px;
+}
+
+.fa-2x {
+  font-size: 20px;
+}
+
+.main-content {
+  width: 100%;
+}
+.city {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  padding: 20px;
+  padding-left: 0px;
+  padding-right: 0px;
+  background: #252525;
+  text-align: center;
+  font-weight: 500;
+  display: flex;
+  justify-content: center;
+  a,
+  a:active,
+  a:hover,
+  a:focus {
+    color: white;
+  }
+
+  .fa {
+    position: relative;
+    top: -3px;
+    left: 05px;
+  }
+}
+
+.fa {
+  font-size: 20px;
+}
+
+.mat-drawer-open {
+  width: 80px;
+}
+
+.mat-drawer-content {
+  // margin-left: 80px;
+}
+
+.tooltip {
+  position: relative;
+  display: flex;
+}
+
+.tooltiptext {
+  border: 01px solid white;
+  left: 25px;
+  background-color: #0f0d19;
+  color: #6d6b72;
+  position: absolute;
+  width: auto;
+  visibility: hidden;
+  padding: 0px 8px;
+  padding-bottom: 2px;
+  font-size: 18px;
+  opacity: 1;
+  z-index: 99999999;
+}
+
+.navigation-item {
+  margin-top: 20px;
+  color: #eeeeee;
+}
+
+.toggle-icon {
+  position: relative;
+  width: 21px;
+  margin-top: 6px;
+  margin-left: 0px;
+  cursor: pointer;
+}
+
+.user-profile {
+  color: white;
+  font-size: 30px;
+}
+
+.city-name {
+  padding-top: 4px;
+}
+
+.sort-icon {
+  margin-left: 0px;
+  width: initial;
+  // top: 0px !important;
+  margin-top: 5px;
+}
+
+.setting-wrapper {
+  min-width: 250px;
+}
+
+.name-wrapper {
+  border-bottom: 1px solid #ccc;
+  padding: 16px;
+  font-weight: 600;
+}
+
+.role {
+  margin-top: 6px;
+  font-size: 14px;
+  font-weight: normal;
+}
+
+.pointer {
+  cursor: pointer;
+}
+
+::ng-deep .mat-menu-content {
+  padding: 0px !important;
+}
+
+.city-container {
+  display: flex;
+  width: 90%;
+}
+
+.menu-short-icon{
+  font-size: 21px;
+}
+
+.align-center{
+  text-align: center;
+}
+
+.pointer{
+  cursor: pointer;
+}
+
+.mar-right-20{
+  margin-right: 20px;
+}

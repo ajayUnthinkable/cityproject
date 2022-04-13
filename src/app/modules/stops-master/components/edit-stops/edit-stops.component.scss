@@ -1,0 +1,128 @@
+.header {
+  padding: 15px;
+  background: white;
+  display: flex;
+  justify-content: space-between;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.12);
+}
+
+.icon-div {
+  width: 27px;
+  z-index: 999;
+  cursor: pointer;
+  margin-top: 2px;
+}
+.display-flex {
+  display: flex;
+}
+
+.stop-name {
+  margin-left: 5px;
+  font-size: 16px;
+  font-weight: 500;
+  padding-top: 3px;
+}
+
+.filter-btn {
+  font-size: 14px;
+  padding: 9px 25px;
+  background: #f28100;
+  border: none;
+  color: #fff;
+  outline: none;
+  margin-left: 15px;
+  cursor: pointer;
+  font-weight: bold;
+  position: relative;
+  margin-right: 20px;
+
+  .fa {
+    margin-right: 5px;
+  }
+}
+
+.details-container {
+  width: 300px;
+  height: calc(100vh - 64px);
+  overflow: auto;
+}
+
+.map-wrapper {
+  height: calc(100vh - 64px);
+  width: calc(100% - 300px);
+}
+
+.heading {
+  font-size: 15px;
+  font-weight: 600;
+  padding: 10px 15px;
+  background:#eeeeee;
+  width: 100%;
+}
+
+.details {
+  padding-left: 15px;
+  background: white;
+  padding-top: 10px;
+  border-top: 01px solid lightgray;
+  position: relative;
+  p {
+    margin: 0px;
+    margin-top: 5px;
+  }
+}
+
+.info {
+  font-weight: 500;
+  padding-bottom: 10px;
+}
+
+.info-lang {
+  font-weight: 500;
+  // padding-bottom: 5px;
+}
+
+.route-name {
+  font-weight: 500;
+}
+
+.icon {
+  position: absolute;
+  right: 10px;
+  width: 16px;
+  cursor: pointer;
+}
+
+.stop-name-input {
+  width: 90%;
+  display: inline-block;
+}
+
+.action {
+  text-align: right;
+  width: 90%;
+  padding-bottom: 10px;
+}
+
+.action-icon {
+  padding: 2px;
+  border-radius: 50%;
+  background: white;
+  font-size: 20px;
+  box-shadow: 2px 2px 5px -2px #888888;
+  cursor: default;
+}
+.mat-form-field {
+  width: 100%;
+  font-weight: 500;
+}
+.cancel {
+  margin-right: 15px;
+}
+
+:host ::ng-deep .input .mat-form-field-wrapper .mat-form-field-flex .mat-form-field-infix {
+  padding-top: 0;
+}
+.mt-10 {
+  margin-top: 10px;
+ }

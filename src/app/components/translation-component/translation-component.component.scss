@@ -1,0 +1,42 @@
+.stop-name-1 {
+    margin-left: 35px;
+    width: auto;
+    display: inline-block;
+    font-size: 13px;
+  }
+
+  .stop-name-input {
+    display: inline-block;
+  }
+
+  input {
+    width: 140px;
+    height: 21px;
+    border: none;
+    // border-bottom: 1px solid #ccc;
+    font-size: 14px;
+    outline: none;
+  }
+
+  .add-btn {
+    float: right;
+    margin-bottom: 20px;
+    cursor: pointer;
+    color: #f28100;
+  }
+
+  .card-index {
+    margin-left: -15px;
+    margin-top: 14px;
+    padding-right: 5px;
+    font-weight: 500;
+  }
+
+  ::ng-deep .mat-input-invalid .mat-input-ripple {
+    background-color: #f28100;
+}
+
+.translation-card {
+  width: 165px;
+  height: 35px;
+}

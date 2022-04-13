@@ -1,0 +1,54 @@
+<div class="spinner-wrapper" *ngIf="isShowLoader">
+    <mat-progress-spinner [color]="'primary'" [mode]="'indeterminate'" [diameter]="'50'" [strokeWidth]="'3'"
+        [value]="'100'">
+    </mat-progress-spinner>
+</div>
+<div>
+    <div class="filter-bar">
+        <div class="heading-container">
+            <!-- <form [formGroup]="searchRouteForm"> -->
+            <div class="search-input">
+                <mat-icon class="search-icon">search</mat-icon>
+                <!-- <mat-icon class="search-icon">close</mat-icon>                   -->
+                <input type="text" placeholder="Search Report" />
+            </div>
+            <!-- </form> -->
+        </div>
+    </div>
+    <div class="list-container">
+        <div class="header list-iten">
+            <span class="items">List of Reports</span>
+            <span class="items">Action</span>
+        </div>
+        <div class="list-iten">
+            <span class="items">Routes Summary</span>
+            <span class="items">
+                <mat-icon (click)="download('routesSummary')">get_app</mat-icon>
+            </span>
+        </div>
+        <div class="list-iten">
+            <span class="items">Route-Stop details</span>
+            <span class="items">
+                <mat-icon (click)="download('routesDetail')">get_app</mat-icon>
+            </span>
+        </div>
+        <div class="list-iten">
+            <span class="items">Stops in the city</span>
+            <span class="items">
+                <mat-icon (click)="downloadCityStops()">get_app</mat-icon>
+            </span>
+        </div>
+        <div class="list-iten">
+            <span class="items">Fare charts</span>
+            <span class="items">
+                <mat-icon (click)="download('fares')">get_app</mat-icon>
+            </span>
+        </div>
+        <div class="list-iten">
+            <span class="items">Timetabls</span>
+            <span class="items">
+                <mat-icon (click)="download('timetable')">get_app</mat-icon>
+            </span>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,33 @@
+<div>
+    <div>
+        <div class="mar-bot-34">
+            <h1 class="heading">Environment</h1>
+        </div>
+        <div class="csv-wrapper">
+            <mat-radio-group [(ngModel)]="environmentData" color="primary">
+                <mat-radio-button value="dev" class="text">Dev</mat-radio-button>
+                <mat-radio-button value="prod" class="text">Prod</mat-radio-button>
+            </mat-radio-group>
+        </div> 
+    </div>
+
+    <div>
+        <div class="mar-top-40">
+            <h1 class="heading">Data</h1>
+        </div>  
+        <div class="csv-wrapper">
+            <mat-radio-group [(ngModel)]="data" color="primary">
+                <mat-radio-button value="all" class="text">All</mat-radio-button>
+                <mat-radio-button value="fare" class="text">Fare Data</mat-radio-button>
+            </mat-radio-group>
+        </div>   
+    </div>
+        <div class="btn-wrapper">
+            <button (click)="close()" [disabled]="isSaveDisable" class="app-btn btn cancel-btn"><span>{{isSaveDisable ? 'Please
+                    wait' : 'CANCEL'}}</span></button>
+            <button (click)="upload()" [disabled]="isSaveDisable" class="app-btn btn">
+                <span>{{isSaveDisable ? 'Please wait' : 'DEPLOY'}}</span>
+            </button>
+        </div>
+   
+</div>

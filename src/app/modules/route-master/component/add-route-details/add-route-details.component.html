@@ -1,0 +1,105 @@
+<div class="spinner-wrapper" *ngIf="isShowLoader">
+    <mat-progress-spinner [color]="'primary'" [mode]="'indeterminate'" [diameter]="'50'" [strokeWidth]="'3'"
+        [value]="'100'">
+    </mat-progress-spinner>
+</div>
+
+<div class="add-route-wrapper">
+    <h2 class="heading">
+        Route details
+    </h2>
+    <form [formGroup]="addRouteForm" *ngIf="cityInfo" class="route-form">
+        <mat-form-field class="form-control">
+            <input matInput placeholder="Route Number" formControlName="routeNumber" class="size-16"/>
+            <mat-error *ngIf="addRouteForm.get('routeNumber').hasError('required')">Route Name is required</mat-error>
+        </mat-form-field>
+        <mat-form-field class="form-control">
+            <input matInput placeholder="Internal Name" formControlName="internalName" class="size-16"/>
+        </mat-form-field>
+        <div class="padding-bottom">
+            <mat-label class="size-16">Direction</mat-label>
+            <div class="radio-button">
+                <mat-radio-group formControlName="direction" class="form-control size-16" color = 'primary'>
+                    <mat-radio-button *ngFor="let direction of cityInfo.directions" [value]="direction">{{direction}}
+                    </mat-radio-button>
+                </mat-radio-group>
+                <mat-error *ngIf="addRouteForm.get('direction').hasError('required')">Direction is
+                    required {{addRouteForm.get('direction').hasError('required')}}</mat-error>
+            </div>
+            <hr />
+        </div>
+        <mat-label *ngIf="cityInfo.serviceTags && cityInfo.serviceTags.length" class="size-16">Service Tag</mat-label>
+        <div class="radio-button size-16 overflow-scroll" *ngIf="cityInfo.serviceTags && cityInfo.serviceTags.length">
+            <ul>
+                <li *ngFor="let tag of cityInfo.serviceTags">
+                    <mat-checkbox class="margin size-16" (change)="selectServiceTag(tag.name)" [checked]="tag.isChecked" color ='primary'>
+                        {{tag.name}}</mat-checkbox>
+                </li>
+            </ul>
+        </div>
+       <div class="padding-bottom"  *ngIf="tags && tags.gid">
+           <mat-label class="size-16 tags">Tags</mat-label>
+           <div class=" mt-4 size-16">
+               <mat-form-field>
+                   <mat-select class="pd-5" [formControl]="vehicleIdForm" placeholder="Select tags" multiple
+                   (selectionChange)="selectTags($event)">
+                    <!-- <input placeholder="Search " class="mat-select-search-input" #searchRef /> -->
+                    <div class="select-all-btn" (click)="deselectAllSelection()">Deselect all</div>
+                   <mat-option *ngFor="let item of tags.gid" value="{{ item }}">{{ item }}</mat-option>
+                  </mat-select>
+               </mat-form-field>
+           </div>
+
+       </div>
+
+
+
+        
+
+        <mat-label class="size-16">Applications</mat-label>
+        <div class="radio-button overflow-scroll">
+            <ul>
+                <li *ngFor="let application of cityInfo.applications">
+                    <mat-checkbox class="margin size-16" (change)="selectApplication(application.name)"
+                        [checked]="application.isChecked" color= 'primary'>
+                        {{application.name|uppercase}}</mat-checkbox>
+                </li>
+            </ul>
+        </div>
+        <mat-form-field class="form-control size-16">
+            <input matInput placeholder="Reverse Id" formControlName="reverseId" />
+        </mat-form-field>
+        <div class="padding-bottom" *ngIf="(mode === 'edit') && (currentRoute!=='reviewRoutes' && backLink !== 'reviewRoutes')">
+            <mat-label class="size-16">Active</mat-label>
+            <div class="radio-button">
+                <mat-radio-group formControlName="unActive" class="form-control size-16" color = 'primary'>
+                    <mat-radio-button [value]="false">
+                            YES
+                    </mat-radio-button>
+                    <mat-radio-button [value]="true">
+                            NO
+                   </mat-radio-button>
+                </mat-radio-group>
+                <mat-error *ngIf="addRouteForm.get('unActive').hasError('required')">Active is
+                    required {{addRouteForm.get('unActive').hasError('required')}}</mat-error>
+            </div>
+            <hr />
+        </div>
+        <div class="file-input-wrapper" *ngIf="(mode !== 'edit')">
+            <input class="mediaCapture" #fileUpload type="file" (change)="fileSelected($event)" accept=".csv , .txt">
+            <mat-form-field class="form-control">
+                <input matInput placeholder="Upload File" #file (click)="fileUpload.click()" [(value)]="fileName"
+                    readonly formControlName="file" class="file-input" />
+            </mat-form-field>
+            <button class="remove-button" *ngIf="fileName" (click)="removeFile()">Remove</button>
+        </div>
+        <div class="btn-wrapper">
+            <!-- <button class="filter-btn" *ngIf="mode==='edit'"  (click)="loadReverseIdData(addRouteForm.get('reverseId').value)"
+                            [disabled]="disableProceed || !addRouteForm.get('reverseId').value">Load ReverseId</button> -->
+            <button class="filter-btn cancel-btn" (click)="cancel()">Cancel</button>
+            <button class="filter-btn" 
+            (click)="isVerified()"
+                [disabled]="disableProceed">Proceed</button>
+        </div>
+    </form>
+</div>

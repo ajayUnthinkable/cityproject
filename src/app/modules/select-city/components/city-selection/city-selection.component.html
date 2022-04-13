@@ -1,0 +1,48 @@
+<div *ngIf="dataLoaded" class="spinner-wrapper">
+    <mat-progress-spinner class="example-margin" [color]="'primary'" [mode]="'indeterminate'" [diameter]="'50'"
+        [strokeWidth]="'3'" [value]="'100'">
+    </mat-progress-spinner>
+</div>
+
+
+<div>
+    <div *ngIf="!data || data.isFrom != 'home' " class="logo"></div>
+    <div class="city-selection-wrapper">
+        <div class="text heading">Select city</div>
+        <div class="select-wrapper upper-case-wrapper"
+            [ngClass]="!this.userInfo || !this.userInfo.city ? 'disabled' : ''">
+            <div class="select-text">City</div>
+            <mat-form-field>
+                <mat-select [(value)]="cityName" (selectionChange)="citySelected()">
+                    <mat-option class="upper-case" *ngFor="let city of this.userInfo.city" value="{{city.name}}">
+                        {{city.name}}</mat-option>
+                </mat-select>
+            </mat-form-field>
+        </div>
+        
+        <div class="select-wrapper upper-case-wrapper"
+            [ngClass]="!this.userInfo || (!this.userInfo.agency || this.userInfo.agency.length == 0)  ? 'disabled' : ''">
+            <div class="select-text">Agency</div>
+            <mat-form-field>
+                <mat-select [(value)]="agencyId" (selectionChange)="agencySelected()">
+                    <mat-option class="upper-case" *ngFor="let agency of this.userInfo.agency" value="{{agency.id}}">
+                        {{agency.name}}</mat-option>
+                </mat-select>
+            </mat-form-field>
+        </div>
+        <div class="select-wrapper upper-case-wrapper"
+        [ngClass]="!this.userInfo || (!this.userInfo.mode || this.userInfo.mode.length == 0) ? 'disabled' : ''">
+        <div class="select-text">Mode</div>
+        <mat-form-field>
+            <mat-select [(value)]="modeId" (selectionChange)="modeSelected()">
+                <mat-option class="upper-case" *ngFor="let mode of this.userInfo.mode" value="{{mode.id}}">
+                    {{mode.name}}</mat-option>
+            </mat-select>
+        </mat-form-field>
+    </div>
+    
+        <div class="done-btn btn-wrapper">
+            <button (click)="saveData()" class="app-btn">DONE</button>
+        </div>
+    </div>
+</div>

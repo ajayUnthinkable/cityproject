@@ -80,6 +80,47 @@
   padding-left: 5px;
 }
 
+.ToDate {
+  display: flex;
+  // zoom: 0.85;
+  left: 600px;
+  width: 200px;
+  margin-top: 0px;
+  position: absolute;
+  // padding: 0%;
+  justify-content: space-between;
+}
+
+#goButton {
+  margin-top: 8px;
+  background-color: #f28100;
+  // color: white;
+  font-family: sans-serif;
+
+  font-size: 14px;
+  // padding: 12px 15px;
+  padding-right: 6px;
+  // background: #f28100;
+  border: none;
+  color: #fff;
+  outline: none;
+  // margin-left: 15px;
+  cursor: pointer;
+  font-weight: bold;
+  position: relative;
+}
+
+.FromDate {
+  display: flex;
+  // zoom: 0.85;
+  left: 390px;
+  width: 200px;
+  margin-top: 0px;
+  position: absolute;
+  // padding: 0%;
+  justify-content: space-between;
+}
+
 #show-accuracy {
   display: flex;
   right: 15px;
@@ -327,11 +368,6 @@
 }
 .bg-white {
   background: white;
-}
-
-.stop-container {
-  // position: relative;
-  // display: flex;
 }
 
 .option {

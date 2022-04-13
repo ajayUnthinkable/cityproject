@@ -45,7 +45,7 @@ export class RouteService {
         return err;
       });
   }
-  getRouteOutPoly(routeId: string) {
+  getRouteOutPoly(routeId: string, _fromDate, _todate) {
     let url;
     // url = `${environment.preProd_url}scheduler_v4/${this.city}/download/fare?routeId=${this.routeId}`;
     let dispatchedInfo = JSON.parse(localStorage.getItem("dispatchInfo"));
@@ -55,14 +55,16 @@ export class RouteService {
       `${this.city}` +
       "/accuracy/route?routeId=" +
       `${routeId}` +
-      "&from=1646685096767&to=1647289896769&accuracyRadius=20&thresholdStopVisits=30";
+      "&from=" +
+      `${_fromDate}` +
+      "&to=" +
+      `${_todate}` +
+      "&accuracyRadius=20&thresholdStopVisits=30";
 
     return this.httpHandler
       .get(url)
       .then((res) => {
         if (res) {
-          console.log("ajay service data " + res);
-          // console.log(res);
           return res;
         }
       })
@@ -70,7 +72,7 @@ export class RouteService {
         if (err.status === 401) {
           this.httpHandler.getRefreshToken().then((res) => {
             if (res) {
-              this.getRouteOutPoly(routeId);
+              this.getRouteOutPoly(routeId, _fromDate, _todate);
             }
           });
         }

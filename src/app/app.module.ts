@@ -25,7 +25,7 @@ import { ApiInterceptor } from "src/interceptor/api.interceptor";
 import { TranslationModule } from "./components/translation-component/translation.module";
 import { MatInputModule } from "@angular/material/input";
 import { MatFormFieldModule } from "@angular/material/form-field";
-
+import { MatDatepickerModule } from "@angular/material/datepicker";
 @NgModule({
   declarations: [AppComponent, ConfirmationDialogueComponent],
   imports: [
@@ -39,6 +39,7 @@ import { MatFormFieldModule } from "@angular/material/form-field";
     TranslationModule,
     MatFormFieldModule,
     MatInputModule,
+    MatDatepickerModule,
   ],
   providers: [
     { provide: GOOGLE_LOGIN_CONFIG, useValue: googleConfig },

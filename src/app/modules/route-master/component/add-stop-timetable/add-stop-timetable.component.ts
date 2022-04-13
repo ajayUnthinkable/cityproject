@@ -21,7 +21,7 @@ import { retry, pairwise, startWith } from "rxjs/operators";
 import { ViewFareComponent } from "../view-fare/view-fare.component";
 import { langCodes } from "src/app/utils/config/constants";
 import { HttpClient } from "@angular/common/http";
-
+import { MatDatepicker } from "@angular/material/datepicker";
 import { environment } from "src/environments/environment";
 
 declare var google: any;
@@ -32,6 +32,7 @@ declare var google: any;
 })
 export class AddStopTimetableComponent implements OnInit, OnDestroy {
   temp_url;
+  plottedMarkersNew = [];
   show_accuracy;
   new_data;
   temp_data;
@@ -118,25 +119,6 @@ export class AddStopTimetableComponent implements OnInit, OnDestroy {
       searchStop: "",
     });
     this.newRouteDetails = this.routeService.getNewRouteDetails();
-
-    this.routeService
-      .getRouteOutPoly(this.newRouteDetails["routeId"])
-      .then((res) => {
-        this.new_data = res;
-        console.log("ajay service respose data", res);
-        // localStorage.setItem();
-      })
-      .catch((err) => {
-        this.new_data = {};
-        // this.isShowLoader = false;
-      })
-      .finally(() => {
-        if (this.new_data != {}) {
-          this.show_accuracy = this.new_data["accuracy"];
-          this.temp_data = this.new_data["outOfPolyPoints"];
-        }
-        // console.log("ajay temp datad", this.temp_data);
-      });
 
     this.stopList = [...this.newRouteDetails.stopList];
     this.stops = [...this.stopList];
@@ -717,6 +699,7 @@ export class AddStopTimetableComponent implements OnInit, OnDestroy {
         //   markerObj: marker,
         // };
         // this.allStopsMarker.push(allMarker);
+        this.plottedMarkersNew.push(marker);
         marker.setMap(this.map);
         marker.addListener("click", () => {
           const position = marker.getPosition();
@@ -1807,5 +1790,52 @@ export class AddStopTimetableComponent implements OnInit, OnDestroy {
   ngOnDestroy(): void {
     this.dialog.closeAll();
     this.unsubscribeAllControls();
+  }
+  sendDate(fromDate: Event, toDate: Event) {
+    // localStorage.setItem("date", event.value);
+    // console.log(event);
+    // console.log(ypeof new Date(fromDate.value).getTime(),new Date(toDate.value));
+    // let from_Date = new Date(fromDate.value);
+    // let to_Date = new
+    // console.log(a);
+    // console.log(a.getTime());
+    this.routeService
+      .getRouteOutPoly(
+        this.newRouteDetails["routeId"],
+        new Date(fromDate.value).getTime(),
+        new Date(toDate.value).getTime()
+      )
+      .then((res) => {
+        // this.temp_data = this.new_data;
+        this.new_data = res;
+        // console.log("ajay service respose data", res);
+        // localStorage.setItem();
+      })
+      .catch((err) => {
+        this.new_data = {};
+        // this.isShowLoader = false;
+      })
+      .finally(
+        () => {
+          if (this.plottedMarkersNew.length != 0) {
+            this.removeMarkerNew();
+          }
+
+          this.show_accuracy = this.new_data["accuracy"];
+          this.temp_data = this.new_data["outOfPolyPoints"];
+          this.setMarkersNew();
+        }
+        // console.log("ajay temp datad", this.temp_data);
+      );
+  }
+
+  removeMarkerNew() {
+    if (this.plottedMarkersNew) {
+      for (let i = 0; i < this.plottedMarkersNew.length; i++) {
+        this.plottedMarkersNew[i].setMap(null);
+      }
+      this.plottedMarkersNew.length = 0;
+    }
+    // this.setMarkersNew();
   }
 }

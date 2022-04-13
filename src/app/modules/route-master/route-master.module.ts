@@ -1,51 +1,57 @@
-import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { Routes, RouterModule } from '@angular/router';
-import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
-import { NgxPaginationModule } from 'ngx-pagination';
-import { MatMenuModule } from '@angular/material/menu';
+import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from "@angular/core";
+import { CommonModule } from "@angular/common";
+import { Routes, RouterModule } from "@angular/router";
+import { FontAwesomeModule } from "@fortawesome/angular-fontawesome";
+import { NgxPaginationModule } from "ngx-pagination";
+import { MatMenuModule } from "@angular/material/menu";
 
-import { MatProgressSpinnerModule } from '@angular/material/progress-spinner'
-import { MatDialogModule } from '@angular/material/dialog';
-import { MatIconModule } from '@angular/material/icon';
-import { MatSelectModule } from '@angular/material/select';
-import { MatInputModule } from '@angular/material/input';
+import { MatProgressSpinnerModule } from "@angular/material/progress-spinner";
+import { MatDialogModule } from "@angular/material/dialog";
+import { MatIconModule } from "@angular/material/icon";
+import { MatSelectModule } from "@angular/material/select";
+import { MatInputModule } from "@angular/material/input";
 
-import { ReactiveFormsModule, FormsModule } from '@angular/forms';
-import { MatRadioModule } from '@angular/material/radio';
-import { MatTabsModule } from '@angular/material/tabs';
-import { MatCheckboxModule } from '@angular/material/checkbox';
+import { MatDatepickerModule } from "@angular/material/datepicker";
+import { MatNativeDateModule } from "@angular/material/core";
 
-import { MatSliderModule } from '@angular/material/slider';
-import { DragDropModule } from '@angular/cdk/drag-drop';
+import { ReactiveFormsModule, FormsModule } from "@angular/forms";
+import { MatRadioModule } from "@angular/material/radio";
+import { MatTabsModule } from "@angular/material/tabs";
+import { MatCheckboxModule } from "@angular/material/checkbox";
 
-import { RouteMasterComponent } from './route-master.component';
-import { RouteService } from './route-master.service';
-import { UploadFareComponent } from './component/upload-fare/upload-fare.component';
-import { ViewRouteComponent } from './component/view-route/view-route.component';
-import { ConfirmUploadComponent } from './component/confirm-upload/confirm-upload.component';
+import { MatSliderModule } from "@angular/material/slider";
+import { DragDropModule } from "@angular/cdk/drag-drop";
 
-import { ViewStopsComponent } from './component/view-stops/view-stops.component';
-import { ViewFareComponent } from './component/view-fare/view-fare.component';
-import { MapComponent } from './component/map/map.component';
-import { TimeTableComponent } from './component/time-table/time-table.component';
-import { UploadTimeTableComponent } from './component/upload-time-table/upload-time-table.component';
+import { RouteMasterComponent } from "./route-master.component";
+import { RouteService } from "./route-master.service";
+import { UploadFareComponent } from "./component/upload-fare/upload-fare.component";
+import { ViewRouteComponent } from "./component/view-route/view-route.component";
+import { ConfirmUploadComponent } from "./component/confirm-upload/confirm-upload.component";
 
-import { CustomLowerCasePipe, CustomUpperCasePipe } from '../../../providers/upper-case.pipe';
-import { AddRouteDetailsComponent } from './component/add-route-details/add-route-details.component';
-import { AddStopTimetableComponent } from './component/add-stop-timetable/add-stop-timetable.component';
-import { ReviewChangesComponent } from './component/review-changes/review-changes.component';
-import { ViewTimetableComponent } from './component/view-timetable/view-timetable.component';
-import { GenericListFilterModule } from 'generic-list-filter';
-import { ReportService } from '../reports/reports.service';
-import { TranslationModule } from 'src/app/components/translation-component/translation.module';
+import { ViewStopsComponent } from "./component/view-stops/view-stops.component";
+import { ViewFareComponent } from "./component/view-fare/view-fare.component";
+import { MapComponent } from "./component/map/map.component";
+import { TimeTableComponent } from "./component/time-table/time-table.component";
+import { UploadTimeTableComponent } from "./component/upload-time-table/upload-time-table.component";
+
+import {
+  CustomLowerCasePipe,
+  CustomUpperCasePipe,
+} from "../../../providers/upper-case.pipe";
+import { AddRouteDetailsComponent } from "./component/add-route-details/add-route-details.component";
+import { AddStopTimetableComponent } from "./component/add-stop-timetable/add-stop-timetable.component";
+import { ReviewChangesComponent } from "./component/review-changes/review-changes.component";
+import { ViewTimetableComponent } from "./component/view-timetable/view-timetable.component";
+import { GenericListFilterModule } from "generic-list-filter";
+import { ReportService } from "../reports/reports.service";
+import { TranslationModule } from "src/app/components/translation-component/translation.module";
 
 const routes: Routes = [
-  { path: 'addStop', pathMatch: 'full', component: AddStopTimetableComponent },
-  { path: 'routes/:route', component: RouteMasterComponent },
-  { path: 'poly', component: MapComponent },
-  { path: '', redirectTo: 'routes/liveRoutes' }
-]
+  { path: "addStop", pathMatch: "full", component: AddStopTimetableComponent },
+  { path: "routes/:route", component: RouteMasterComponent },
+  { path: "poly", component: MapComponent },
+  { path: "", redirectTo: "routes/liveRoutes" },
+];
 @NgModule({
   declarations: [
     RouteMasterComponent,
@@ -62,7 +68,7 @@ const routes: Routes = [
     CustomUpperCasePipe,
     AddRouteDetailsComponent,
     AddStopTimetableComponent,
-    ReviewChangesComponent
+    ReviewChangesComponent,
   ],
   imports: [
     CommonModule,
@@ -81,12 +87,14 @@ const routes: Routes = [
     MatRadioModule,
     MatSliderModule,
     DragDropModule,
-    FormsModule, 
+    FormsModule,
     ReactiveFormsModule,
     GenericListFilterModule,
-    TranslationModule
+    TranslationModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
   ],
-  providers: [RouteService,ReportService],
-  schemas: [CUSTOM_ELEMENTS_SCHEMA]
+  providers: [RouteService, ReportService],
+  schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })
-export class RouteMasterModule { }
+export class RouteMasterModule {}
